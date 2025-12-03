@@ -64,7 +64,7 @@ body {
     -webkit-backdrop-filter: blur(10px);
     border-bottom: 1px solid var(--gray-light);
     z-index: 1000;
-    padding: 20px 0;
+    padding: 10px 0;  /* Changed from 20px to 10px */
 }
 
 .nav-container {
@@ -82,9 +82,13 @@ body {
 }
 
 .nav-logo img {
-    height: 80px;
+    height: 120px;  /* Go BIG */
     width: auto;
     display: block;
+}
+.nav-logo a {
+    display: inline-block;
+    padding: 10px 0;
 }
 
 .nav-logo a {
