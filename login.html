@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - mYa Solutions</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="index.html">mYa Solutions</a>
+            </div>
+            <div class="nav-links">
+                <a href="about.html">About</a>
+                <a href="login.html" class="active nav-login">Login</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Login Section -->
+    <section class="login-section">
+        <div class="container">
+            <div class="login-container">
+                <div class="login-header">
+                    <h1>Access Jean OS</h1>
+                    <p>Connect to your Jean OS instance</p>
+                </div>
+
+                <div class="login-box">
+                    <form id="loginForm" class="login-form">
+                        <div class="form-group">
+                            <label for="username">Username</label>
+                            <input type="text" id="username" name="username" required placeholder="Enter your username">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <input type="password" id="password" name="password" required placeholder="Enter your password">
+                        </div>
+
+                        <div class="form-info">
+                            <p class="info-text">
+                                <strong>Connection Details:</strong><br>
+                                Server: 147.182.248.155<br>
+                                Protocol: SSH (Port 22)
+                            </p>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-full">Connect to Jean OS</button>
+
+                        <div id="loginMessage" class="login-message"></div>
+                    </form>
+
+                    <div class="login-help">
+                        <h3>Need Access?</h3>
+                        <p>Jean OS access is currently available to pilot program participants and select partners.</p>
+                        <p>To request access, please contact: <a href="/cdn-cgi/l/email-protection#c3aab183aebaa2b0acafb6b7aaacadb0edacb1a4"><span class="__cf_email__" data-cfemail="1f766d5f72667e6c70736a6b7670716c31706d78">[email&#160;protected]</span></a></p>
+                    </div>
+
+                    <div class="login-info-box">
+                        <h3>About Jean OS Access</h3>
+                        <ul>
+                            <li><strong>Secure Connection:</strong> All connections use encrypted SSH protocol</li>
+                            <li><strong>Offline-First:</strong> Once connected, Jean OS runs locally on your machine</li>
+                            <li><strong>Privacy:</strong> Your data never leaves your device</li>
+                            <li><strong>Support:</strong> Technical assistance available during pilot phase</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-left">
+                    <div class="footer-logo">mYa Solutions</div>
+                    <p>Welcome to the Future of AI. Built for YOU!</p>
+                    <p class="footer-address">Oakland, CA</p>
+                </div>
+                <div class="footer-right">
+                    <a href="about.html">About</a>
+                    <a href="login.html">Login</a>
+                    <a href="/cdn-cgi/l/email-protection#85ecf7c5e8fce4f6eae9f0f1eceaebf6abeaf7e2">Contact</a>
+                </div>
+            </div>
+            <div class="footer-bottom
