@@ -82,8 +82,14 @@ body {
 }
 
 .nav-logo img {
-    height: 60px;
+    height: 80px;
     width: auto;
+    display: block;
+}
+
+.nav-logo a {
+    display: inline-block;
+    padding: 5px 0;
 }
 
 .nav-logo a:hover {
