@@ -64,7 +64,7 @@ body {
     -webkit-backdrop-filter: blur(10px);
     border-bottom: 1px solid var(--gray-light);
     z-index: 1000;
-    padding: 10px 0;  /* Changed from 20px to 10px */
+    padding: 15px 0;  /* Changed from 20px to 10px */
 }
 
 .nav-container {
@@ -78,7 +78,7 @@ body {
 
 .nav-logo a {
     display: inline-block;
-    transition: var(--transition);
+    line-height: 0;
 }
 
 .nav-logo img {
@@ -86,15 +86,7 @@ body {
     width: auto;
     display: block;
 }
-.nav-logo a {
-    display: inline-block;
-    padding: 10px 0;
-}
 
-.nav-logo a {
-    display: inline-block;
-    padding: 5px 0;
-}
 
 .nav-logo a:hover {
     color: var(--gold);
