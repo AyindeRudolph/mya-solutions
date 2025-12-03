@@ -200,22 +200,55 @@
     </section>
 
     <!-- Contact Section -->
-    <section id="contact" class="contact-section">
-        <div class="container">
-            <h2>Join The Revolution</h2>
-            <p class="section-subtitle">Ready to reclaim what matters? Let's talk.</p>
-            
-            <div class="contact-content">
-                <div class="contact-info">
-                    <p>Whether you're a school district looking to transform education, a healthcare system seeking better diagnostics, or an investor who sees the future of AI architecture—we want to hear from you.</p>
-                    
-                    <a href="/cdn-cgi/l/email-protection#d3baa193beaab2a0bcbfa6a7babcbda0fdbca1b4" class="contact-email"><span class="__cf_email__" data-cfemail="2b42596b46524a5844475e5f424445580544594c">[email&#160;protected]</span></a>
-                    
-                    <p class="contact-note">For investor relations, partnership inquiries, or pilot program opportunities.</p>
-                </div>
+<section id="contact" class="contact-section">
+    <div class="container">
+        <h2>Join The Revolution</h2>
+        <p class="section-subtitle">Ready to reclaim what matters? Let's talk.</p>
+        
+        <div class="contact-content">
+            <div class="contact-info">
+                <p>Whether you're a school district looking to transform education, a healthcare system seeking better diagnostics, or an investor who sees the future of AI architecture—we want to hear from you.</p>
             </div>
+
+            <form class="contact-form" action="https://formsubmit.co/ir@myasolutions.org" method="POST">
+                <!-- Honeypot for spam protection -->
+                <input type="text" name="_honey" style="display:none">
+                
+                <!-- Disable captcha -->
+                <input type="hidden" name="_captcha" value="false">
+                
+                <!-- Success page (optional) -->
+                <input type="hidden" name="_next" value="https://myasolutions.org/index.html#contact">
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="name">Name *</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Email *</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="organization">Organization</label>
+                    <input type="text" id="organization" name="organization">
+                </div>
+
+                <div class="form-group">
+                    <label for="message">Message *</label>
+                    <textarea id="message" name="message" rows="5" required></textarea>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Send Message</button>
+            </form>
+
+            <p class="contact-note">For investor relations, partnership inquiries, or pilot program opportunities.</p>
         </div>
-    </section>
+    </div>
+</section>
 
     <!-- Footer -->
     <footer class="footer">
