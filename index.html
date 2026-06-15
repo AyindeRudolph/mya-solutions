@@ -48,10 +48,16 @@
   .quick a:hover{color:#fff}
   .quick a.signin{border:1px solid rgba(255,255,255,.4);border-radius:100px;padding:7px 16px;color:#fff;margin-left:6px}
   .quick a.signin:hover{background:#fff;color:var(--space)}
-  /* launch countdown */
-  .launch{display:flex;align-items:center;gap:10px;border:1px solid rgba(244,162,89,.5);border-radius:100px;padding:7px 16px;background:rgba(244,162,89,.08)}
-  .launch .lbl{font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--dawn-soft);font-weight:600}
-  .launch .clock{font-family:var(--font-display);font-size:14px;color:#fff;font-weight:500;font-variant-numeric:tabular-nums}
+  /* launch countdown — live per-second ticker */
+  .launch{display:flex;align-items:center;gap:12px;border:1px solid rgba(244,162,89,.4);border-radius:14px;padding:8px 16px;background:rgba(244,162,89,.07);backdrop-filter:blur(8px)}
+  .launch .lbl{font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--dawn-soft);font-weight:600;white-space:nowrap}
+  .launch .segments{display:flex;align-items:center;gap:4px}
+  .launch .seg{display:flex;flex-direction:column;align-items:center;min-width:32px}
+  .launch .seg .num{font-family:var(--font-display);font-size:16px;font-weight:500;color:#fff;font-variant-numeric:tabular-nums;line-height:1;letter-spacing:-.02em}
+  .launch .seg .unit{font-size:8px;letter-spacing:.14em;text-transform:uppercase;color:rgba(244,162,89,.75);margin-top:2px;font-weight:500}
+  .launch .sep{font-family:var(--font-display);font-size:15px;color:rgba(244,162,89,.5);margin-bottom:8px;line-height:1}
+  .launch.live .lbl{color:#6ee7b7}
+  .launch.live .seg .num{color:#6ee7b7}
 
   /* ---------- panel base ---------- */
   .panel{position:relative;height:100vh;min-height:640px;overflow:hidden;display:flex;align-items:center}
@@ -128,9 +134,17 @@
       <a href="company.html">Company</a>
       <a href="login.html" class="signin">Sign In</a>
     </nav>
-    <div class="launch" title="Commercial launch">
+    <div class="launch" id="launch-wrap" title="Commercial launch — Nov 13, 2026">
       <span class="lbl">Launch</span>
-      <span class="clock" id="countdown">—</span>
+      <div class="segments">
+        <div class="seg"><span class="num" id="cd-days">—</span><span class="unit">days</span></div>
+        <span class="sep">:</span>
+        <div class="seg"><span class="num" id="cd-hrs">—</span><span class="unit">hrs</span></div>
+        <span class="sep">:</span>
+        <div class="seg"><span class="num" id="cd-min">—</span><span class="unit">min</span></div>
+        <span class="sep">:</span>
+        <div class="seg"><span class="num" id="cd-sec">—</span><span class="unit">sec</span></div>
+      </div>
     </div>
   </div>
 
@@ -236,19 +250,33 @@
   </section>
 
   <script>
-    /* ---- live countdown to Nov 13, 2026 ---- */
+    /* ---- live countdown to Nov 13, 2026 — ticks every second ---- */
     (function(){
       var target = new Date('2026-11-13T09:00:00-08:00').getTime();
-      var el = document.getElementById('countdown');
+      var wrap = document.getElementById('launch-wrap');
+      var elD = document.getElementById('cd-days');
+      var elH = document.getElementById('cd-hrs');
+      var elM = document.getElementById('cd-min');
+      var elS = document.getElementById('cd-sec');
+      function pad(n){ return n < 10 ? '0'+n : ''+n; }
       function tick(){
         var now = Date.now(), d = target - now;
-        if(d <= 0){ el.textContent = 'Live now'; return; }
+        if(d <= 0){
+          elD.textContent='00'; elH.textContent='00';
+          elM.textContent='00'; elS.textContent='00';
+          wrap && wrap.classList.add('live');
+          return;
+        }
         var days = Math.floor(d/86400000);
-        var hrs = Math.floor((d%86400000)/3600000);
-        var min = Math.floor((d%3600000)/60000);
-        el.textContent = 'Nov 13 · T-' + days + 'd ' + hrs + 'h ' + min + 'm';
+        var hrs  = Math.floor((d%86400000)/3600000);
+        var min  = Math.floor((d%3600000)/60000);
+        var sec  = Math.floor((d%60000)/1000);
+        elD.textContent = days;
+        elH.textContent = pad(hrs);
+        elM.textContent = pad(min);
+        elS.textContent = pad(sec);
       }
-      tick(); setInterval(tick, 60000);
+      tick(); setInterval(tick, 1000);
     })();
 
     /* ---- starfield on opener ---- */
