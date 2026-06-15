@@ -1,14 +1,20 @@
 <!DOCTYPE html>
 <!--
   FILE / ROOT:  /site/index.html  (mYa Solutions front door)
-  OWNER:        Ayinde Rudolph, Ed.D. — mYa Solutions (ir@myasolutions.org)
+  OWNER:        Ayinde Rudolph, Ed.D. — mYa Solutions (arudolph@myasolutions.org)
   CIPHER:       4KAM1431RAN
   PURPOSE:      Cinematic vertical-scroll front door. One full-screen panel per vertical,
                 each with a vision one-liner + "learn more". Nothing auto-advances.
                 Persistent top quick-links + live Nov 13 2026 launch countdown.
-  MEDIA:        Each panel loads media/<name>.mp4 (plays once, then holds poster) +
-                media/<name>-poster.jpg. Drop matching filenames into /media to populate.
-                Full filename manifest at the bottom of the conversation.
+  MEDIA:        Structured /media/ hierarchy — see media/README.md for full manifest.
+                  media/hero/          ← site-level cinematic openers
+                  media/products/      ← per-product hero clips
+                  media/press/         ← b-roll, press kit assets
+                  media/team/          ← founder story, team videos
+                  media/pilots/        ← Parlier, robotics arm, NEJM demos
+                CSS painted fallbacks render automatically when any file is absent.
+  PATHS:        All nav + learn-more links are relative (.html) for GitHub Pages.
+  UPDATED:      2026-06-15 — structured media hierarchy; fixed nav absolute→relative.
 -->
 <html lang="en">
 <head>
@@ -115,11 +121,11 @@
   <div class="topbar">
     <a class="brand" href="#top"><span class="glyph"></span>mYa Solutions</a>
     <nav class="quick">
-      <a href="/about">About</a>
+      <a href="about.html">About</a>
       <a href="#education">Products</a>
-      <a href="/investor">Investor</a>
-      <a href="/giving">Giving Back</a>
-      <a href="/company">Company</a>
+      <a href="investor.html">Investor</a>
+      <a href="giving.html">Giving Back</a>
+      <a href="company.html">Company</a>
       <a href="login.html" class="signin">Sign In</a>
     </nav>
     <div class="launch" title="Commercial launch">
@@ -130,8 +136,8 @@
 
   <!-- ===== 0 · OPENER (Earthrise) ===== -->
   <section class="panel opener" id="top">
-    <video autoplay muted playsinline poster="media/hero-earthrise-poster.jpg" onended="holdPoster(this)" onerror="this.style.display='none'">
-      <source src="media/hero-earthrise.mp4" type="video/mp4">
+    <video autoplay muted playsinline poster="media/hero/earthrise-poster.png" onended="holdPoster(this)" onerror="this.style.display='none'">
+      <source src="media/hero/earthrise.mp4" type="video/mp4">
     </video>
     <div class="media-bg" aria-hidden="true"></div>
     <div class="stars" id="stars" aria-hidden="true"></div>
@@ -147,85 +153,85 @@
 
   <!-- ===== 1 · EDUCATION ===== -->
   <section class="panel p-education" id="education">
-    <video muted playsinline poster="media/panel-education-poster.jpg" onended="holdPoster(this)" onerror="this.style.display='none'">
-      <source src="media/panel-education.mp4" type="video/mp4">
+    <video muted playsinline poster="media/products/marva-hero-poster.jpg" onended="holdPoster(this)" onerror="this.style.display='none'">
+      <source src="media/products/marva-hero.mp4" type="video/mp4">
     </video>
     <div class="media-bg" aria-hidden="true"></div><div class="scrim" aria-hidden="true"></div>
     <div class="content">
       <div class="eyebrow">Education · Marva</div>
       <h2 class="line">Give every teacher<br>the time to teach.</h2>
       <p class="sub">A partner that returns the hours and never lets a student's data leave the room.</p>
-      <a class="learn" href="/about/education">Learn more <span class="arr">&rarr;</span></a>
+      <a class="learn" href="about.html#education">Learn more <span class="arr">&rarr;</span></a>
     </div>
   </section>
 
   <!-- ===== 2 · CYBERSECURITY ===== -->
   <section class="panel p-cyber" id="cyber">
-    <video muted playsinline poster="media/panel-cyber-poster.jpg" onended="holdPoster(this)" onerror="this.style.display='none'">
-      <source src="media/panel-cyber.mp4" type="video/mp4">
+    <video muted playsinline poster="media/products/bethany-hero-poster.jpg" onended="holdPoster(this)" onerror="this.style.display='none'">
+      <source src="media/products/bethany-hero.mp4" type="video/mp4">
     </video>
     <div class="media-bg" aria-hidden="true"></div><div class="scrim" aria-hidden="true"></div>
     <div class="content">
       <div class="eyebrow">Cybersecurity · BethanyShell</div>
       <h2 class="line">Guard the data<br>that can't move.</h2>
       <p class="sub">Nation-state-grade defense that runs where your most sensitive data already lives.</p>
-      <a class="learn" href="/about/cybersecurity">Learn more <span class="arr">&rarr;</span></a>
+      <a class="learn" href="about.html#cyber">Learn more <span class="arr">&rarr;</span></a>
     </div>
   </section>
 
   <!-- ===== 3 · ROBOTICS ===== -->
   <section class="panel p-robotics" id="robotics">
-    <video muted playsinline poster="media/panel-robotics-poster.jpg" onended="holdPoster(this)" onerror="this.style.display='none'">
-      <source src="media/panel-robotics.mp4" type="video/mp4">
+    <video muted playsinline poster="media/products/robotics-hero-poster.jpg" onended="holdPoster(this)" onerror="this.style.display='none'">
+      <source src="media/products/robotics-hero.mp4" type="video/mp4">
     </video>
     <div class="media-bg" aria-hidden="true"></div><div class="scrim" aria-hidden="true"></div>
     <div class="content">
       <div class="eyebrow">Robotics</div>
       <h2 class="line">Give machines<br>a steady hand.</h2>
       <p class="sub">Dexterous control with no language-model calls in the cognitive path. Already demonstrated.</p>
-      <a class="learn" href="/about/robotics">Learn more <span class="arr">&rarr;</span></a>
+      <a class="learn" href="about.html#robotics">Learn more <span class="arr">&rarr;</span></a>
     </div>
   </section>
 
   <!-- ===== 4 · AUTONOMOUS VEHICLES ===== -->
   <section class="panel p-av" id="av">
-    <video muted playsinline poster="media/panel-av-poster.jpg" onended="holdPoster(this)" onerror="this.style.display='none'">
-      <source src="media/panel-av.mp4" type="video/mp4">
+    <video muted playsinline poster="media/products/av-hero-poster.jpg" onended="holdPoster(this)" onerror="this.style.display='none'">
+      <source src="media/products/av-hero.mp4" type="video/mp4">
     </video>
     <div class="media-bg" aria-hidden="true"></div><div class="scrim" aria-hidden="true"></div>
     <div class="content">
       <div class="eyebrow">Autonomous Navigation</div>
       <h2 class="line">Master the<br>open roads.</h2>
       <p class="sub">Live route reasoning across thousands of nodes — on the device, without the cloud.</p>
-      <a class="learn" href="/about/navigation">Learn more <span class="arr">&rarr;</span></a>
+      <a class="learn" href="about.html#navigation">Learn more <span class="arr">&rarr;</span></a>
     </div>
   </section>
 
   <!-- ===== 5 · MINING ===== -->
   <section class="panel p-mining" id="mining">
-    <video muted playsinline poster="media/panel-mining-poster.jpg" onended="holdPoster(this)" onerror="this.style.display='none'">
-      <source src="media/panel-mining.mp4" type="video/mp4">
+    <video muted playsinline poster="media/products/mining-hero-poster.jpg" onended="holdPoster(this)" onerror="this.style.display='none'">
+      <source src="media/products/mining-hero.mp4" type="video/mp4">
     </video>
     <div class="media-bg" aria-hidden="true"></div><div class="scrim" aria-hidden="true"></div>
     <div class="content">
       <div class="eyebrow">Sustainable Extraction</div>
       <h2 class="line">Architect the clean<br>industrial horizon.</h2>
       <p class="sub">Intelligence for the resources the future runs on — extracted with precision, not waste.</p>
-      <a class="learn" href="/about/mining">Learn more <span class="arr">&rarr;</span></a>
+      <a class="learn" href="about.html#mining">Learn more <span class="arr">&rarr;</span></a>
     </div>
   </section>
 
   <!-- ===== 6 · CORAL / THOUGHT PROJECTS ===== -->
   <section class="panel p-coral" id="coral">
-    <video muted playsinline poster="media/panel-coral-poster.jpg" onended="holdPoster(this)" onerror="this.style.display='none'">
-      <source src="media/panel-coral.mp4" type="video/mp4">
+    <video muted playsinline poster="media/products/coral-hero-poster.jpg" onended="holdPoster(this)" onerror="this.style.display='none'">
+      <source src="media/products/coral-hero.mp4" type="video/mp4">
     </video>
     <div class="media-bg" aria-hidden="true"></div><div class="scrim" aria-hidden="true"></div>
     <div class="content">
       <div class="eyebrow">Ecological Restoration · In exploration</div>
       <h2 class="line">Defend Earth's<br>vital rims.</h2>
       <p class="sub">Some problems we're just beginning to imagine. Coral restoration is where we've started.</p>
-      <a class="learn" href="/about/restoration">Learn more <span class="arr">&rarr;</span></a>
+      <a class="learn" href="about.html#restoration">Learn more <span class="arr">&rarr;</span></a>
     </div>
   </section>
 
