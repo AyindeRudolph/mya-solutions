@@ -41,8 +41,7 @@
   .topbar{position:fixed;top:0;left:0;right:0;z-index:60;display:flex;align-items:center;justify-content:space-between;
           padding:18px 36px;background:linear-gradient(180deg,rgba(5,8,15,.7),rgba(5,8,15,0))}
   .brand{font-family:var(--font-display);font-weight:600;font-size:19px;color:#fff;display:flex;align-items:center;gap:10px;text-decoration:none}
-  .brand .glyph{width:17px;height:17px;border-radius:50%;border:1.5px solid #fff;position:relative}
-  .brand .glyph::after{content:"";position:absolute;inset:4px;border-radius:50%;background:#fff;opacity:.55}
+  .nav-logo{height:38px;width:auto;display:block;object-fit:contain;filter:brightness(1.05)}
   .quick{display:flex;gap:24px;align-items:center}
   .quick a{color:rgba(255,255,255,.82);text-decoration:none;font-size:13.5px;letter-spacing:.01em;transition:color .2s}
   .quick a:hover{color:#fff}
@@ -126,7 +125,7 @@
 
   <!-- ===== persistent top bar ===== -->
   <div class="topbar">
-    <a class="brand" href="#top"><span class="glyph"></span>mYa Solutions</a>
+    <a class="brand" href="#top"><img src="logo.png" alt="mYa Solutions" class="nav-logo"></a>
     <nav class="quick">
       <a href="about.html">About</a>
       <a href="investor.html">Investor</a>

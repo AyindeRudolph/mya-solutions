@@ -53,8 +53,7 @@
           background:linear-gradient(180deg,rgba(5,8,15,.72),rgba(5,8,15,0))}
   .brand{font-family:var(--font-display);font-weight:600;font-size:19px;color:#fff;
          display:flex;align-items:center;gap:10px;text-decoration:none}
-  .brand .glyph{width:17px;height:17px;border-radius:50%;border:1.5px solid #fff;position:relative}
-  .brand .glyph::after{content:"";position:absolute;inset:4px;border-radius:50%;background:#fff;opacity:.55}
+  .nav-logo{height:38px;width:auto;display:block;object-fit:contain;filter:brightness(1.05)}
   .quick{display:flex;gap:24px;align-items:center}
   .quick a{color:rgba(255,255,255,.82);text-decoration:none;font-size:13.5px;transition:color .2s}
   .quick a:hover{color:#fff}
@@ -235,8 +234,7 @@
   .footer-inner{max-width:1040px;margin:0 auto;display:flex;justify-content:space-between;flex-wrap:wrap;gap:30px}
   .footer .f-logo{font-family:var(--font-display);font-weight:600;font-size:20px;color:#fff;
                   display:flex;align-items:center;gap:10px;text-decoration:none}
-  .footer .f-logo .glyph{width:16px;height:16px;border-radius:50%;border:1.5px solid #fff;position:relative}
-  .footer .f-logo .glyph::after{content:"";position:absolute;inset:4px;border-radius:50%;background:#fff;opacity:.5}
+  .footer-logo{height:44px;width:auto;display:block;object-fit:contain;filter:brightness(1.1)}
   .footer .f-tag{margin-top:12px;font-family:var(--font-display);font-style:italic;font-size:15px;color:rgba(255,255,255,.7)}
   .footer .f-links{display:flex;flex-direction:column;gap:10px}
   .footer .f-links a{color:rgba(255,255,255,.6);text-decoration:none;font-size:14px}
@@ -261,7 +259,7 @@
 
   <!-- ===== TOPBAR ===== -->
   <div class="topbar">
-    <a class="brand" href="index.html"><span class="glyph"></span>mYa Solutions</a>
+    <a class="brand" href="index.html"><img src="logo.png" alt="mYa Solutions" class="nav-logo"></a>
     <nav class="quick">
       <a href="index.html">Home</a>
       <a href="about.html">About</a>
@@ -511,7 +509,7 @@
   <footer class="footer">
     <div class="footer-inner">
       <div>
-        <a class="f-logo" href="index.html"><span class="glyph"></span>mYa Solutions</a>
+        <a class="f-logo" href="index.html"><img src="logo.png" alt="mYa Solutions" class="footer-logo"></a>
         <div class="f-tag">The other half of the AI story.</div>
       </div>
       <div class="f-links">
