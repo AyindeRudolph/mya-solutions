@@ -1,448 +1,317 @@
 <!DOCTYPE html>
+<!--
+  FILE / ROOT:  /site/index.html  (mYa Solutions front door)
+  OWNER:        Ayinde Rudolph, Ed.D. — mYa Solutions (arudolph@myasolutions.org)
+  CIPHER:       4KAM1431RAN
+  PURPOSE:      Cinematic vertical-scroll front door. One full-screen panel per vertical,
+                each with a vision one-liner + "learn more". Nothing auto-advances.
+                Persistent top quick-links + live Nov 13 2026 launch countdown.
+  MEDIA:        Structured /media/ hierarchy — see media/README.md for full manifest.
+                  media/hero/          ← site-level cinematic openers
+                  media/products/      ← per-product hero clips
+                  media/press/         ← b-roll, press kit assets
+                  media/team/          ← founder story, team videos
+                  media/pilots/        ← Parlier, robotics arm, NEJM demos
+                CSS painted fallbacks render automatically when any file is absent.
+  PATHS:        All nav + learn-more links are relative (.html) for GitHub Pages.
+  UPDATED:      2026-06-15 — structured media hierarchy; fixed nav absolute→relative.
+-->
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>mYa Solutions — Find Your Inner Genius Again</title>
-    <meta name="description" content="Time is your most valuable resource. The Work is what's taking it. Jean is your personal Partner Intelligence — private, local, and built to give your time back.">
-    <link rel="stylesheet" href="styles.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>mYa Solutions — The other half of the AI story</title>
+<meta name="description" content="One engine. Many doors. Private, local intelligence for the world's hardest problems. You're early.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --space:#05080f; --space-2:#0a1018;
+    --dawn:#f4a259; --dawn-soft:#f6c89a;
+    --sand:#f7f3ec; --ink:#16202a; --star:#cfd8e2;
+    --font-display:'Fraunces',Georgia,serif;
+    --font-body:'Inter',system-ui,sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{font-family:var(--font-body);background:var(--space);color:#fff;-webkit-font-smoothing:antialiased}
+
+  /* ---------- persistent top bar ---------- */
+  .topbar{position:fixed;top:0;left:0;right:0;z-index:60;display:flex;align-items:center;justify-content:space-between;
+          padding:18px 36px;background:linear-gradient(180deg,rgba(5,8,15,.7),rgba(5,8,15,0))}
+  .brand{font-family:var(--font-display);font-weight:600;font-size:19px;color:#fff;display:flex;align-items:center;gap:10px;text-decoration:none}
+  .brand .glyph{width:17px;height:17px;border-radius:50%;border:1.5px solid #fff;position:relative}
+  .brand .glyph::after{content:"";position:absolute;inset:4px;border-radius:50%;background:#fff;opacity:.55}
+  .quick{display:flex;gap:24px;align-items:center}
+  .quick a{color:rgba(255,255,255,.82);text-decoration:none;font-size:13.5px;letter-spacing:.01em;transition:color .2s}
+  .quick a:hover{color:#fff}
+  .quick a.signin{border:1px solid rgba(255,255,255,.4);border-radius:100px;padding:7px 16px;color:#fff;margin-left:6px}
+  .quick a.signin:hover{background:#fff;color:var(--space)}
+  /* launch countdown — live per-second ticker */
+  .launch{display:flex;align-items:center;gap:12px;border:1px solid rgba(244,162,89,.4);border-radius:14px;padding:8px 16px;background:rgba(244,162,89,.07);backdrop-filter:blur(8px)}
+  .launch .lbl{font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--dawn-soft);font-weight:600;white-space:nowrap}
+  .launch .segments{display:flex;align-items:center;gap:4px}
+  .launch .seg{display:flex;flex-direction:column;align-items:center;min-width:32px}
+  .launch .seg .num{font-family:var(--font-display);font-size:16px;font-weight:500;color:#fff;font-variant-numeric:tabular-nums;line-height:1;letter-spacing:-.02em}
+  .launch .seg .unit{font-size:8px;letter-spacing:.14em;text-transform:uppercase;color:rgba(244,162,89,.75);margin-top:2px;font-weight:500}
+  .launch .sep{font-family:var(--font-display);font-size:15px;color:rgba(244,162,89,.5);margin-bottom:8px;line-height:1}
+  .launch.live .lbl{color:#6ee7b7}
+  .launch.live .seg .num{color:#6ee7b7}
+
+  /* ---------- panel base ---------- */
+  .panel{position:relative;height:100vh;min-height:640px;overflow:hidden;display:flex;align-items:center}
+  .panel video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1}
+  .panel .media-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0}
+  .panel .scrim{position:absolute;inset:0;z-index:2}
+  .panel .content{position:relative;z-index:3;padding:0 8%;max-width:900px}
+  .eyebrow{font-size:12px;letter-spacing:.3em;text-transform:uppercase;color:var(--dawn-soft);font-weight:500;margin-bottom:22px}
+  .line{font-family:var(--font-display);font-weight:500;line-height:1.04;letter-spacing:-.015em;color:#fff;
+        font-size:clamp(40px,7vw,86px)}
+  .panel .sub{margin-top:22px;font-size:18px;line-height:1.6;color:rgba(255,255,255,.82);max-width:520px}
+  .learn{display:inline-flex;align-items:center;gap:10px;margin-top:34px;padding:14px 28px;border-radius:100px;
+          border:1px solid rgba(255,255,255,.45);color:#fff;text-decoration:none;font-size:15px;font-weight:500;
+          transition:background .2s,color .2s,border-color .2s}
+  .learn:hover{background:#fff;color:var(--space);border-color:#fff}
+  .learn .arr{transition:transform .2s}
+  .learn:hover .arr{transform:translateX(4px)}
+
+  /* ---------- opener (Earthrise) ---------- */
+  .opener .scrim{background:linear-gradient(90deg,rgba(5,8,15,.3) 30%,rgba(5,8,15,.55) 70%,rgba(5,8,15,.7) 100%)}
+  .opener .content{margin-left:auto;text-align:left;max-width:620px;padding-right:8%}
+  .opener .line{font-size:clamp(36px,5.2vw,68px)}
+  .opener .early{display:inline-block;margin-top:26px;font-family:var(--font-display);font-style:italic;font-size:22px;color:var(--dawn)}
+  /* painted earthrise fallback until media/hero-earthrise.* exists */
+  .opener .media-bg{background:radial-gradient(120% 90% at 8% 45%,#1b2430 0%,#0a0f17 40%,#05080f 72%)}
+  .opener .media-bg::before{content:"";position:absolute;left:-20%;top:50%;transform:translateY(-50%);width:80vh;height:80vh;border-radius:50%;
+        background:radial-gradient(circle at 80% 50%,#2a3b4d 0%,#0c141d 56%,#060a11 72%);
+        box-shadow:0 0 60px 0 rgba(244,162,89,.15)}
+  .opener .media-bg::after{content:"";position:absolute;left:-20%;top:50%;transform:translateY(-50%);width:80vh;height:80vh;border-radius:50%;
+        background:conic-gradient(from 50deg at 50% 50%,rgba(244,162,89,0) 300deg,rgba(246,200,154,.85) 348deg,rgba(244,162,89,.6) 360deg);
+        -webkit-mask:radial-gradient(circle at 80% 50%,transparent 60%,#000 61%,#000 72%,transparent 73%);
+                mask:radial-gradient(circle at 80% 50%,transparent 60%,#000 61%,#000 72%,transparent 73%)}
+  .stars{position:absolute;inset:0;z-index:2;pointer-events:none}
+  .star{position:absolute;background:var(--star);border-radius:50%;animation:tw 4s ease-in-out infinite}
+  @keyframes tw{0%,100%{opacity:.15}50%{opacity:.7}}
+
+  /* per-vertical painted fallbacks (until real media drops in) + scrims */
+  .p-education .media-bg{background:radial-gradient(120% 100% at 65% 25%,#3a2a1c,#0c0f16)}
+  .p-cyber .media-bg{background:radial-gradient(120% 100% at 60% 30%,#13243a,#070c14)}
+  .p-robotics .media-bg{background:radial-gradient(120% 100% at 70% 30%,#2a2030,#0a0d14)}
+  .p-av .media-bg{background:radial-gradient(120% 100% at 60% 35%,#3a2c1a,#0c0e14)}
+  .p-mining .media-bg{background:radial-gradient(120% 100% at 55% 40%,#3a2a18,#140d08)}
+  .p-coral .media-bg{background:radial-gradient(120% 100% at 60% 30%,#0f3a44,#06141a)}
+  .panel:not(.opener) .scrim{background:linear-gradient(90deg,rgba(5,8,15,.78) 0%,rgba(5,8,15,.45) 55%,rgba(5,8,15,.25) 100%)}
+
+  /* scroll hint on opener */
+  .scrollhint{position:absolute;left:50%;bottom:28px;transform:translateX(-50%);z-index:3;color:rgba(255,255,255,.6);
+     font-size:11px;letter-spacing:.2em;text-transform:uppercase;display:flex;flex-direction:column;align-items:center;gap:8px;animation:bob 2.4s ease-in-out infinite}
+  @keyframes bob{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(6px)}}
+  .scrollhint .l{width:1px;height:30px;background:linear-gradient(rgba(255,255,255,.6),rgba(255,255,255,0))}
+
+  @media (max-width:820px){
+    .topbar{padding:14px 18px;flex-wrap:wrap;gap:10px}
+    .quick{gap:14px;order:3;width:100%;overflow-x:auto}
+    .quick a{font-size:12.5px;white-space:nowrap}
+    .opener .content{margin-left:0;padding:0 7%}
+    .panel .content{padding:0 7%}
+  }
+  @media (prefers-reduced-motion:reduce){
+    .star,.scrollhint{animation:none}
+    html{scroll-behavior:auto}
+  }
+</style>
 </head>
 <body>
 
-    <!-- NAV -->
-    <nav class="nav">
-        <div class="nav-container">
-            <div class="nav-logo">
-                <a href="index.html"><img src="logo.png" alt="mYa Solutions"></a>
-            </div>
-            <div class="nav-links">
-                <a href="about.html">Our Story</a>
-                <a href="#beta" class="nav-cta">Reclaim Your Genius</a>
-                <a href="login.html" class="nav-login">Sign In</a>
-            </div>
-        </div>
+  <!-- ===== persistent top bar ===== -->
+  <div class="topbar">
+    <a class="brand" href="#top"><span class="glyph"></span>mYa Solutions</a>
+    <nav class="quick">
+      <a href="about.html">About</a>
+      <a href="#education">Products</a>
+      <a href="investor.html">Investor</a>
+      <a href="giving.html">Giving Back</a>
+      <a href="company.html">Company</a>
+      <a href="login.html" class="signin">Sign In</a>
     </nav>
+    <div class="launch" id="launch-wrap" title="Commercial launch — Nov 13, 2026">
+      <span class="lbl">Launch</span>
+      <div class="segments">
+        <div class="seg"><span class="num" id="cd-days">—</span><span class="unit">days</span></div>
+        <span class="sep">:</span>
+        <div class="seg"><span class="num" id="cd-hrs">—</span><span class="unit">hrs</span></div>
+        <span class="sep">:</span>
+        <div class="seg"><span class="num" id="cd-min">—</span><span class="unit">min</span></div>
+        <span class="sep">:</span>
+        <div class="seg"><span class="num" id="cd-sec">—</span><span class="unit">sec</span></div>
+      </div>
+    </div>
+  </div>
 
-    <!-- HERO -->
-    <section class="hero">
-        <div class="hero-gradient"></div>
-        <div class="container hero-inner">
-            <div class="hero-eyebrow">Partner Intelligence</div>
-            <h1 class="hero-title">Find Your Inner<br><em>Genius Again.</em></h1>
-            <p class="hero-subtitle">Everyone gets 24 hours. No one got 25½ last night.<br>Time is your most valuable resource. <strong>The Work is what's taking it.</strong></p>
-            <div class="hero-ctas">
-                <a href="#beta" class="btn btn-gold">Reclaim Your Genius</a>
-                <a href="#demo" class="btn btn-ghost">Watch the Demo</a>
-            </div>
-            <div class="hero-proof">
-                <div class="proof-item">
-                    <span class="proof-num">22pts</span>
-                    <span class="proof-label">student growth in one semester</span>
-                </div>
-                <div class="proof-divider"></div>
-                <div class="proof-item">
-                    <span class="proof-num">7–10h</span>
-                    <span class="proof-label">returned to teachers every week</span>
-                </div>
-                <div class="proof-divider"></div>
-                <div class="proof-item">
-                    <span class="proof-num">100%</span>
-                    <span class="proof-label">private — your data never leaves</span>
-                </div>
-            </div>
-        </div>
-    </section>
+  <!-- ===== 0 · OPENER (Earthrise) ===== -->
+  <section class="panel opener" id="top">
+    <video autoplay muted playsinline poster="media/hero/earthrise-poster.png" onended="holdPoster(this)" onerror="this.style.display='none'">
+      <source src="media/hero/earthrise.mp4" type="video/mp4">
+    </video>
+    <div class="media-bg" aria-hidden="true"></div>
+    <div class="stars" id="stars" aria-hidden="true"></div>
+    <div class="scrim" aria-hidden="true"></div>
+    <div class="content">
+      <div class="eyebrow">mYa Solutions</div>
+      <h1 class="line">The light was always going to come around.</h1>
+      <p class="sub">Everyone scaled AI up — into the cloud, away from you. We built the other half: private, local, already proven.</p>
+      <span class="early">You're early.</span>
+    </div>
+    <div class="scrollhint"><span>Scroll</span><span class="l"></span></div>
+  </section>
 
-    <!-- THE VILLAIN -->
-    <section class="villain-section">
-        <div class="container">
-            <div class="villain-layout">
-                <div class="villain-text">
-                    <div class="section-eyebrow">The Problem</div>
-                    <h2>The Work was never supposed to win.</h2>
-                    <p>You entered your profession with a calling. The teacher who wanted to change lives. The doctor who wanted to heal. But somewhere between the grading and the charting and the scheduling and the reporting — the calling got buried.</p>
-                    <p>That's not a you problem. That's <strong>The Work</strong> — the administrative tax every professional pays before they can do what they actually came to do.</p>
-                    <p class="villain-kicker">And now AI is supposed to help? 47% of AI users report burnout from tools that created more work than they solved. The Work just changed clothes.</p>
-                </div>
-                <div class="villain-list">
-                    <div class="work-item">Grading.</div>
-                    <div class="work-item">Charting.</div>
-                    <div class="work-item">Scheduling.</div>
-                    <div class="work-item">Reporting.</div>
-                    <div class="work-item">Emailing.</div>
-                    <div class="work-item">Data entry.</div>
-                    <div class="work-item work-item-faded">...and it never stops asking.</div>
-                </div>
-            </div>
-        </div>
-    </section>
+  <!-- ===== 1 · EDUCATION ===== -->
+  <section class="panel p-education" id="education">
+    <video muted playsinline poster="media/products/marva-hero-poster.jpg" onended="holdPoster(this)" onerror="this.style.display='none'">
+      <source src="media/products/marva-hero.mp4" type="video/mp4">
+    </video>
+    <div class="media-bg" aria-hidden="true"></div><div class="scrim" aria-hidden="true"></div>
+    <div class="content">
+      <div class="eyebrow">Education · Marva</div>
+      <h2 class="line">Give every teacher<br>the time to teach.</h2>
+      <p class="sub">A partner that returns the hours and never lets a student's data leave the room.</p>
+      <a class="learn" href="about.html#education">Learn more <span class="arr">&rarr;</span></a>
+    </div>
+  </section>
 
-    <!-- MEET JEAN -->
-    <section class="jean-section">
-        <div class="container">
-            <div class="section-eyebrow light">The Solution</div>
-            <h2 class="jean-title">What if you had the same thing<br>every powerful person already has?</h2>
-            <p class="jean-subtitle">A personal assistant that knows your world. That never sleeps. That never shares your secrets. That handles The Work — so you can find your genius.</p>
-            <div class="jean-name">Her name is Jean.</div>
+  <!-- ===== 2 · CYBERSECURITY ===== -->
+  <section class="panel p-cyber" id="cyber">
+    <video muted playsinline poster="media/products/bethany-hero-poster.jpg" onended="holdPoster(this)" onerror="this.style.display='none'">
+      <source src="media/products/bethany-hero.mp4" type="video/mp4">
+    </video>
+    <div class="media-bg" aria-hidden="true"></div><div class="scrim" aria-hidden="true"></div>
+    <div class="content">
+      <div class="eyebrow">Cybersecurity · BethanyShell</div>
+      <h2 class="line">Guard the data<br>that can't move.</h2>
+      <p class="sub">Nation-state-grade defense that runs where your most sensitive data already lives.</p>
+      <a class="learn" href="about.html#cyber">Learn more <span class="arr">&rarr;</span></a>
+    </div>
+  </section>
 
-            <div class="jean-pillars">
-                <div class="pillar">
-                    <h3>Completely Private</h3>
-                    <p>Jean runs on your device. Your data never leaves. No cloud. No training on your conversations. FERPA and HIPAA compliant by architecture — not policy.</p>
-                </div>
-                <div class="pillar">
-                    <h3>Actually Intelligent</h3>
-                    <p>Jean doesn't predict the next word. She calculates the right answer using 46 proprietary formulas. She diagnosed 7 of 7 NEJM zebra cases correctly. She doesn't guess.</p>
-                </div>
-                <div class="pillar">
-                    <h3>Works Anywhere</h3>
-                    <p>Jean runs offline. No Wi-Fi required. No monthly GPU bill. Less than a cup of coffee a day. She runs on a MacBook — the same one you already have.</p>
-                </div>
-                <div class="pillar">
-                    <h3>Your Partner</h3>
-                    <p>Jean learns your voice, your style, your world. She doesn't replace you — she extends you. You direct. Jean executes. The genius stays yours.</p>
-                </div>
-            </div>
+  <!-- ===== 3 · ROBOTICS ===== -->
+  <section class="panel p-robotics" id="robotics">
+    <video muted playsinline poster="media/products/robotics-hero-poster.jpg" onended="holdPoster(this)" onerror="this.style.display='none'">
+      <source src="media/products/robotics-hero.mp4" type="video/mp4">
+    </video>
+    <div class="media-bg" aria-hidden="true"></div><div class="scrim" aria-hidden="true"></div>
+    <div class="content">
+      <div class="eyebrow">Robotics</div>
+      <h2 class="line">Give machines<br>a steady hand.</h2>
+      <p class="sub">Dexterous control with no language-model calls in the cognitive path. Already demonstrated.</p>
+      <a class="learn" href="about.html#robotics">Learn more <span class="arr">&rarr;</span></a>
+    </div>
+  </section>
 
-            <div class="jean-wherever">
-                <p>Jean works wherever <strong>The Work</strong> steals your time.</p>
-                <div class="jean-professions">
-                    <span>🍎 Teachers</span>
-                    <span>🩺 Doctors &amp; Nurses</span>
-                    <span>🏫 Administrators</span>
-                    <span>✂️ Small Business Owners</span>
-                    <span>⚖️ Legal Professionals</span>
-                    <span>📊 Financial Advisors</span>
-                </div>
-                <p class="jean-wherever-sub">Starting with education. Expanding everywhere The Work wins.</p>
-            </div>
-        </div>
-    </section>
+  <!-- ===== 4 · AUTONOMOUS VEHICLES ===== -->
+  <section class="panel p-av" id="av">
+    <video muted playsinline poster="media/products/av-hero-poster.jpg" onended="holdPoster(this)" onerror="this.style.display='none'">
+      <source src="media/products/av-hero.mp4" type="video/mp4">
+    </video>
+    <div class="media-bg" aria-hidden="true"></div><div class="scrim" aria-hidden="true"></div>
+    <div class="content">
+      <div class="eyebrow">Autonomous Navigation</div>
+      <h2 class="line">Master the<br>open roads.</h2>
+      <p class="sub">Live route reasoning across thousands of nodes — on the device, without the cloud.</p>
+      <a class="learn" href="about.html#navigation">Learn more <span class="arr">&rarr;</span></a>
+    </div>
+  </section>
 
-    <!-- A DAY IN THE LIFE -->
-    <section class="daylife-section">
-        <div class="container">
-            <div class="section-eyebrow">Before &amp; After</div>
-            <h2>A teacher's day doesn't have to look like this.</h2>
+  <!-- ===== 5 · MINING ===== -->
+  <section class="panel p-mining" id="mining">
+    <video muted playsinline poster="media/products/mining-hero-poster.jpg" onended="holdPoster(this)" onerror="this.style.display='none'">
+      <source src="media/products/mining-hero.mp4" type="video/mp4">
+    </video>
+    <div class="media-bg" aria-hidden="true"></div><div class="scrim" aria-hidden="true"></div>
+    <div class="content">
+      <div class="eyebrow">Sustainable Extraction</div>
+      <h2 class="line">Architect the clean<br>industrial horizon.</h2>
+      <p class="sub">Intelligence for the resources the future runs on — extracted with precision, not waste.</p>
+      <a class="learn" href="about.html#mining">Learn more <span class="arr">&rarr;</span></a>
+    </div>
+  </section>
 
-            <div class="daylife-table">
-                <div class="daylife-header">
-                    <div class="daylife-time-col"></div>
-                    <div class="daylife-col without">Without Jean</div>
-                    <div class="daylife-col with">With Jean</div>
-                </div>
-                <div class="daylife-row">
-                    <div class="daylife-time">5:30 AM</div>
-                    <div class="daylife-bad">Wakes up to finish the lesson plan she started at midnight.</div>
-                    <div class="daylife-good">Jean drafted it overnight. She reviews in 10 minutes over coffee.</div>
-                </div>
-                <div class="daylife-row alt">
-                    <div class="daylife-time">7:45 AM</div>
-                    <div class="daylife-bad">Scrambles to pull data on 3 struggling students before first bell.</div>
-                    <div class="daylife-good">Jean surfaces the insights before she walks in the door.</div>
-                </div>
-                <div class="daylife-row">
-                    <div class="daylife-time">12:15 PM</div>
-                    <div class="daylife-bad">Eats lunch at her desk entering assessment data into 3 platforms.</div>
-                    <div class="daylife-good">Items graded. Data logged in real time. Lunch is actually lunch.</div>
-                </div>
-                <div class="daylife-row alt">
-                    <div class="daylife-time">3:30 PM</div>
-                    <div class="daylife-bad">Stays 2 hours after school writing progress reports from scratch.</div>
-                    <div class="daylife-good">Jean drafted them. Teacher reviews for voice. Home by 4:30.</div>
-                </div>
-                <div class="daylife-row daylife-final">
-                    <div class="daylife-time">6:00 PM</div>
-                    <div class="daylife-bad">Opens laptop at the dinner table. Again.</div>
-                    <div class="daylife-good">Closes it. Goes to her family.</div>
-                </div>
-            </div>
-            <p class="daylife-footer">44% of teachers are burned out. Jean gives them back the people they love.</p>
-        </div>
-    </section>
+  <!-- ===== 6 · CORAL / THOUGHT PROJECTS ===== -->
+  <section class="panel p-coral" id="coral">
+    <video muted playsinline poster="media/products/coral-hero-poster.jpg" onended="holdPoster(this)" onerror="this.style.display='none'">
+      <source src="media/products/coral-hero.mp4" type="video/mp4">
+    </video>
+    <div class="media-bg" aria-hidden="true"></div><div class="scrim" aria-hidden="true"></div>
+    <div class="content">
+      <div class="eyebrow">Ecological Restoration · In exploration</div>
+      <h2 class="line">Defend Earth's<br>vital rims.</h2>
+      <p class="sub">Some problems we're just beginning to imagine. Coral restoration is where we've started.</p>
+      <a class="learn" href="about.html#restoration">Learn more <span class="arr">&rarr;</span></a>
+    </div>
+  </section>
 
-    <!-- DEMO VIDEO -->
-    <section id="demo" class="demo-section">
-        <div class="container">
-            <div class="section-eyebrow light">See Jean In Action</div>
-            <h2 class="demo-title">Watch Jean solve what<br>billion-dollar AI can't.</h2>
-            <div class="video-container">
-                <div class="video-wrapper">
-                    <iframe src="https://www.youtube.com/embed/oda3QBNWOoI"
-                            title="Jean AI Demo"
-                            frameborder="0"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                            allowfullscreen>
-                    </iframe>
-                </div>
-            </div>
-        </div>
-    </section>
+  <script>
+    /* ---- live countdown to Nov 13, 2026 — ticks every second ---- */
+    (function(){
+      var target = new Date('2026-11-13T09:00:00-08:00').getTime();
+      var wrap = document.getElementById('launch-wrap');
+      var elD = document.getElementById('cd-days');
+      var elH = document.getElementById('cd-hrs');
+      var elM = document.getElementById('cd-min');
+      var elS = document.getElementById('cd-sec');
+      function pad(n){ return n < 10 ? '0'+n : ''+n; }
+      function tick(){
+        var now = Date.now(), d = target - now;
+        if(d <= 0){
+          elD.textContent='00'; elH.textContent='00';
+          elM.textContent='00'; elS.textContent='00';
+          wrap && wrap.classList.add('live');
+          return;
+        }
+        var days = Math.floor(d/86400000);
+        var hrs  = Math.floor((d%86400000)/3600000);
+        var min  = Math.floor((d%3600000)/60000);
+        var sec  = Math.floor((d%60000)/1000);
+        elD.textContent = days;
+        elH.textContent = pad(hrs);
+        elM.textContent = pad(min);
+        elS.textContent = pad(sec);
+      }
+      tick(); setInterval(tick, 1000);
+    })();
 
-    <!-- PROOF — SEBASTIAN -->
-    <section class="proof-section">
-        <div class="container">
-            <div class="section-eyebrow">Real Results</div>
-            <h2>This is what happens when a teacher<br>gets their time back.</h2>
+    /* ---- starfield on opener ---- */
+    (function(){
+      var sky = document.getElementById('stars'); if(!sky) return;
+      for(var i=0;i<60;i++){
+        var s=document.createElement('span'); s.className='star';
+        var z=Math.random()*2+0.5;
+        s.style.width=z.toFixed(1)+'px'; s.style.height=z.toFixed(1)+'px';
+        s.style.left=(48+Math.random()*50).toFixed(1)+'%';
+        s.style.top=(Math.random()*100).toFixed(1)+'%';
+        s.style.animationDelay=(Math.random()*4).toFixed(1)+'s';
+        sky.appendChild(s);
+      }
+    })();
 
-            <div class="proof-stats">
-                <div class="proof-stat">
-                    <div class="ps-num">22pts</div>
-                    <div class="ps-label">growth in student proficiency</div>
-                </div>
-                <div class="proof-stat">
-                    <div class="ps-num">7–10h</div>
-                    <div class="ps-label">returned to the teacher every week</div>
-                </div>
-                <div class="proof-stat">
-                    <div class="ps-num">0%</div>
-                    <div class="ps-label">at grade level when the year started</div>
-                </div>
-            </div>
-
-            <div class="testimonial-block">
-                <div class="testimonial-quote">&ldquo;</div>
-                <blockquote>
-                    What previously required 2–3 hours of lesson planning per day was reduced to approximately 45–60 minutes. On average, this resulted in a savings of 7–10 hours per week — time I reinvested into analyzing student work, providing feedback, and building stronger relationships with my students.
-                    <br><br>
-                    Jean 3.0 has not replaced my role as an educator. It has enhanced it.
-                </blockquote>
-                <cite>
-                    <strong>Sebastian A. Benavidez III, M.Ed.</strong><br>
-                    English 9 Teacher · Parlier High School · Mid-year takeover · 0% at grade level in fall
-                </cite>
-            </div>
-
-            <p class="proof-footer">Sebastian's students didn't need more time. Their teacher did.</p>
-        </div>
-    </section>
-
-    <!-- THE PLAN -->
-    <section class="plan-section">
-        <div class="container">
-            <div class="section-eyebrow">Getting Started</div>
-            <h2>Three steps to reclaim your genius.</h2>
-            <div class="plan-steps">
-                <div class="plan-step">
-                    <div class="step-num">01</div>
-                    <h3>Meet Your Partner</h3>
-                    <p>A 10-minute conversation. Jean learns your voice, your profession, your world. This isn't onboarding — it's an introduction.</p>
-                </div>
-                <div class="plan-arrow">→</div>
-                <div class="plan-step">
-                    <div class="step-num">02</div>
-                    <h3>Integrate Your Tools</h3>
-                    <p>Connect the systems you already use. Jean doesn't replace them — she connects them. Privately. Seamlessly.</p>
-                </div>
-                <div class="plan-arrow">→</div>
-                <div class="plan-step">
-                    <div class="step-num">03</div>
-                    <h3>Find Yourself Again</h3>
-                    <p>Jean handles The Work. You return to the work only you can do. The teaching. The healing. The leading. The dreaming.</p>
-                </div>
-            </div>
-
-            <div class="covenant">
-                <h3>Our Promise to You</h3>
-                <div class="covenant-items">
-                    <div class="covenant-item">✓ Your data never leaves your device. Ever.</div>
-                    <div class="covenant-item">✓ Jean learns your voice — not a generic AI tone.</div>
-                    <div class="covenant-item">✓ If Jean doesn't save you 10 hours in week one, we'll tune it personally.</div>
-                    <div class="covenant-item">✓ No prompt engineering required. Jean just gets it.</div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- PRICING / FOUNDING MEMBER CTA -->
-    <section id="beta" class="beta-section">
-        <div class="beta-gradient"></div>
-        <div class="container beta-inner">
-            <div class="section-eyebrow light">Join Jean</div>
-            <h2 class="beta-title">Find your genius.<br>Pick your plan.</h2>
-            <p class="beta-subtitle">Jean is live. Real teachers. Real results. Every plan includes full access — the difference is how you want to commit.</p>
-
-            <div class="pricing-grid">
-
-                <!-- EXPLORER -->
-                <div class="pricing-card">
-                    <div class="pricing-tier">Explorer</div>
-                    <div class="pricing-price">$20<span>/month</span></div>
-                    <div class="pricing-desc">Try Jean. No long commitment. Cancel anytime.</div>
-                    <ul class="pricing-features">
-                        <li>Full access to Jean</li>
-                        <li>All core features</li>
-                        <li>Monthly billing</li>
-                        <li>Email support</li>
-                    </ul>
-                    <a href="#contact" class="btn btn-outline btn-full" data-plan="explorer">Get Started</a>
-                </div>
-
-                <!-- PARTNER — HIGHLIGHTED -->
-                <div class="pricing-card pricing-featured">
-                    <div class="pricing-popular">Most Popular</div>
-                    <div class="pricing-tier">Partner</div>
-                    <div class="pricing-price">$200<span>/year</span></div>
-                    <div class="pricing-savings">Save $40 — two months free</div>
-                    <div class="pricing-desc">The smart choice. Pay once, use all year.</div>
-                    <ul class="pricing-features">
-                        <li>Everything in Explorer</li>
-                        <li>Priority support</li>
-                        <li>Early access to new features</li>
-                        <li>Less than $0.55 a day</li>
-                    </ul>
-                    <a href="#contact" class="btn btn-gold btn-full" data-plan="partner">Reclaim Your Genius →</a>
-                </div>
-
-                <!-- FOUNDING MEMBER -->
-                <div class="pricing-card pricing-lifetime">
-                    <div class="pricing-tier">Founding Member</div>
-                    <div class="pricing-price">$515<span> once</span></div>
-                    <div class="pricing-desc">Pay once. Use Jean forever. Only 290 ever sold.</div>
-                    <div class="pricing-counter">
-                        <span class="counter-num" id="seats-left">287</span>
-                        <span class="counter-label">founding seats remaining</span>
-                    </div>
-                    <ul class="pricing-features">
-                        <li>Lifetime access — never pay again</li>
-                        <li>Locked founding member pricing</li>
-                        <li>Direct line to the founder</li>
-                        <li>Your name in the product credits</li>
-                        <li>First access to every new persona</li>
-                    </ul>
-                    <a href="#contact" class="btn btn-ghost btn-full" data-plan="founding">Claim Your Seat →</a>
-                    <p class="pricing-urgency">When these 290 are gone, this offer closes permanently.</p>
-                </div>
-
-            </div>
-
-            <p class="pricing-note">Stripe payments coming soon. Reserve your spot now — we'll reach out to complete your purchase.</p>
-        </div>
-    </section>
-
-    <!-- SEVEN DOMAINS -->
-    <section class="domains-section">
-        <div class="container">
-            <div class="section-eyebrow">Proof of Concept</div>
-            <h2>One architecture. Seven domains.<br>No cloud calls.</h2>
-            <p class="domains-subtitle">Every domain below is critical to human survival. Jean has been validated in all seven — by one person, on one laptop, in Oakland.</p>
-
-            <div class="domains-grid">
-                <div class="domain-card done">
-                    <div class="domain-num">01</div>
-                    <div class="domain-name">Autonomous Vehicles</div>
-                    <div class="domain-tag">SIL Complete</div>
-                </div>
-                <div class="domain-card done">
-                    <div class="domain-num">02</div>
-                    <div class="domain-name">Medicine (NEJM)</div>
-                    <div class="domain-tag">7/7 Correct</div>
-                </div>
-                <div class="domain-card progress">
-                    <div class="domain-num">03</div>
-                    <div class="domain-name">Nuclear Fusion</div>
-                    <div class="domain-tag">Layer 0 Live</div>
-                </div>
-                <div class="domain-card progress">
-                    <div class="domain-num">04</div>
-                    <div class="domain-name">Cybersecurity</div>
-                    <div class="domain-tag">In Dev</div>
-                </div>
-                <div class="domain-card progress">
-                    <div class="domain-num">05</div>
-                    <div class="domain-name">Marine Biology</div>
-                    <div class="domain-tag">Research</div>
-                </div>
-                <div class="domain-card done">
-                    <div class="domain-num">06</div>
-                    <div class="domain-name">Robotics</div>
-                    <div class="domain-tag">SIL Complete</div>
-                </div>
-            </div>
-
-            <div class="domain-education">
-                <div class="domain-edu-num">07</div>
-                <div class="domain-edu-content">
-                    <div class="domain-edu-label">Education — Where We Start</div>
-                    <p>The most complex, misaligned data of any domain. Every assessment measures something different. We chose it because it has the greatest founder fit — and because this technology is needed to finally close the achievement gap.</p>
-                </div>
-                <div class="domain-tag live">Live Now</div>
-            </div>
-
-            <p class="domains-footer">One person. One laptop. Seven domains. Oakland, California.</p>
-        </div>
-    </section>
-
-    <!-- CONTACT -->
-    <section id="contact" class="contact-section">
-        <div class="container">
-            <div class="section-eyebrow">Get In Touch</div>
-            <h2>Ready to reclaim what matters?</h2>
-            <p class="contact-subtitle">Whether you're a teacher, a district leader, a healthcare system, or an investor who sees what this becomes — we want to hear from you.</p>
-
-            <form class="contact-form" action="https://formsubmit.co/ir@myasolutions.org" method="POST">
-                <input type="text" name="_honey" style="display:none">
-                <input type="hidden" name="_captcha" value="false">
-                <input type="hidden" name="_next" value="https://myasolutions.org/#contact">
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="name">Name *</label>
-                        <input type="text" id="name" name="name" required placeholder="Your name">
-                    </div>
-                    <div class="form-group">
-                        <label for="email">Email *</label>
-                        <input type="email" id="email" name="email" required placeholder="your@email.com">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="organization">Organization</label>
-                    <input type="text" id="organization" name="organization" placeholder="School, district, hospital, or company">
-                </div>
-                <div class="form-group">
-                    <label for="role">I am a...</label>
-                    <select id="role" name="role">
-                        <option value="">Select your role</option>
-                        <option value="teacher">Teacher</option>
-                        <option value="administrator">School Administrator</option>
-                        <option value="superintendent">Superintendent</option>
-                        <option value="doctor">Doctor / Clinician</option>
-                        <option value="investor">Investor</option>
-                        <option value="other">Other</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="message">Message *</label>
-                    <textarea id="message" name="message" rows="5" required placeholder="Tell us what's on your mind..."></textarea>
-                </div>
-                <button type="submit" class="btn btn-gold btn-full">Send Message</button>
-            </form>
-        </div>
-    </section>
-
-    <!-- FOOTER -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-left">
-                    <div class="footer-logo"><img src="logo.png" alt="mYa Solutions" style="height:60px;width:auto;"></div>
-                    <p class="footer-tagline">Find Your Inner Genius Again.</p>
-                    <p class="footer-address">Oakland, CA · arudolph@myasolutions.org</p>
-                </div>
-                <div class="footer-right">
-                    <a href="about.html">Our Story</a>
-                    <a href="#beta">Founding Members</a>
-                    <a href="login.html">Sign In</a>
-                    <a href="#contact">Contact</a>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>In Memoriam: Kamyia Fletcher &nbsp;·&nbsp; &copy; 2026 mYa Solutions. All rights reserved.</p>
-            </div>
-        </div>
-    </footer>
+    /* ---- play once on scroll-into-view, then hold poster ---- */
+    function holdPoster(v){ try{ v.pause(); v.currentTime = 0; v.load(); }catch(e){} }
+    (function(){
+      var vids = document.querySelectorAll('.panel video');
+      var played = new WeakSet();
+      if(!('IntersectionObserver' in window)) return;
+      var io = new IntersectionObserver(function(entries){
+        entries.forEach(function(e){
+          var v = e.target;
+          if(e.isIntersecting && !played.has(v)){
+            played.add(v);
+            v.play && v.play().catch(function(){});
+          }
+        });
+      }, {threshold:.5});
+      vids.forEach(function(v){ io.observe(v); });
+    })();
+  </script>
 
 </body>
 </html>
