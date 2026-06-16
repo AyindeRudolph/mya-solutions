@@ -295,7 +295,7 @@
     })();
 
     /* ---- play once on scroll-into-view, then hold poster ---- */
-    function holdPoster(v){ try{ v.pause(); v.currentTime = 0; v.load(); }catch(e){} }
+    function holdPoster(v){ try{ v.pause(); }catch(e){} }
     (function(){
       var vids = document.querySelectorAll('.panel video');
       var played = new WeakSet();
