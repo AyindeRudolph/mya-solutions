@@ -217,17 +217,28 @@
   .doc-btn:hover{background:var(--rob);transform:translateY(-1px);color:#fff}
 
   /* ========== SUBSTRATE INVARIANCE ========== */
-  .substrate-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
-                  gap:16px;margin-top:48px}
-  .substrate-card{background:rgba(255,255,255,.03);border:0.5px solid rgba(255,255,255,.07);
-                  border-radius:14px;padding:24px;text-align:center}
-  .substrate-card .sub-icon{font-size:28px;margin-bottom:10px}
-  .substrate-card h4{font-family:var(--font-display);font-weight:500;font-size:17px;
-                     color:#fff;margin-bottom:8px}
-  .substrate-card p{font-size:13px;line-height:1.55;color:rgba(255,255,255,.55)}
-  .substrate-card--active{background:rgba(46,74,95,.25);
-                           border-color:rgba(123,175,212,.25)}
-  .substrate-card--active h4{color:var(--rob-bright)}
+  .substrate-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+                  gap:20px;margin-top:48px}
+  .substrate-card{border-radius:18px;overflow:hidden;position:relative;min-height:240px;
+                  display:flex;flex-direction:column;justify-content:flex-end;
+                  transition:transform .25s,box-shadow .25s;text-decoration:none}
+  .substrate-card:hover{transform:translateY(-4px);box-shadow:0 20px 48px rgba(5,8,15,.35)}
+  .substrate-card .tile-bg{position:absolute;inset:0;background-size:cover;
+                            background-position:center;z-index:0}
+  .substrate-card .tile-scrim{position:absolute;inset:0;z-index:1;
+    background:linear-gradient(180deg,rgba(5,8,15,.1) 0%,rgba(5,8,15,.72) 55%,rgba(5,8,15,.92) 100%)}
+  .substrate-card .tile-body{position:relative;z-index:2;padding:22px}
+  .substrate-card h4{font-family:var(--font-display);font-weight:500;font-size:19px;
+                     color:#fff;margin-bottom:6px;line-height:1.15}
+  .substrate-card p{font-size:13px;line-height:1.55;color:rgba(255,255,255,.72)}
+  /* painted placeholder backgrounds per substrate */
+  .sub--robotics .tile-bg{background:linear-gradient(135deg,#0d1a25 0%,#1c3547 50%,#0a1520 100%)}
+  .sub--medicine .tile-bg{background:linear-gradient(135deg,#0a1e2e 0%,#13344a 50%,#081218 100%)}
+  .sub--cyber .tile-bg{background:linear-gradient(135deg,#0f1e2d 0%,#1b3a55 50%,#0a1520 100%)}
+  .sub--navigation .tile-bg{background:linear-gradient(135deg,#0a1a1e 0%,#0f3040 50%,#060e12 100%)}
+  .sub--education .tile-bg{background:linear-gradient(135deg,#1a0f04 0%,#3a2510 50%,#120a02 100%)}
+  .sub--next .tile-bg{background:linear-gradient(135deg,#0d0d14 0%,#1a1a2e 50%,#080810 100%)}
+  /* to add real photo: style="background-image:url('media/pilots/robotics-demo-poster.jpg')" on .tile-bg */
 
   /* ========== WHO IT'S FOR ========== */
   .who-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
@@ -502,36 +513,61 @@
       <h2>Robotics is one proof.<br><span class="em">The same engine runs everywhere.</span></h2>
       <p class="lede">The robotics SIL is corroborating evidence for substrate invariance — the architectural property that one reasoning engine generalizes across physical domains without being rebuilt. Here's the full picture.</p>
       <div class="substrate-grid">
-        <div class="substrate-card substrate-card--active">
-          <div class="sub-icon">🦾</div>
-          <h4>Robotics</h4>
-          <p>7-DOF arm · 11/11 standard threading · 0 false successes · This SIL</p>
+
+        <div class="substrate-card sub--robotics">
+          <div class="tile-bg" style="background-image:url('media/pilots/robotics-demo-poster.jpg')"></div>
+          <div class="tile-scrim"></div>
+          <div class="tile-body">
+            <h4>Robotics</h4>
+            <p>7-DOF arm · 11/11 standard threading · 0 false successes · This SIL</p>
+          </div>
         </div>
-        <div class="substrate-card substrate-card--active">
-          <div class="sub-icon">🧠</div>
-          <h4>Medicine</h4>
-          <p>7/7 NEJM cases · 27s · 2¢ compute · No training data</p>
+
+        <div class="substrate-card sub--medicine">
+          <div class="tile-bg"></div>
+          <div class="tile-scrim"></div>
+          <div class="tile-body">
+            <h4>Medicine</h4>
+            <p>7/7 NEJM cases · 27s · 2¢ compute · No training data</p>
+          </div>
         </div>
-        <div class="substrate-card substrate-card--active">
-          <div class="sub-icon">🛡️</div>
-          <h4>Cybersecurity</h4>
-          <p>92.3% APT block · 0 false positives · 1,700+ assessments</p>
+
+        <div class="substrate-card sub--cyber">
+          <div class="tile-bg"></div>
+          <div class="tile-scrim"></div>
+          <div class="tile-body">
+            <h4>Cybersecurity</h4>
+            <p>92.3% APT block · 0 false positives · 1,700+ assessments</p>
+          </div>
         </div>
-        <div class="substrate-card substrate-card--active">
-          <div class="sub-icon">🚗</div>
-          <h4>Navigation</h4>
-          <p>5,490 Oakland nodes · 0 LLM calls · Live route evaluation</p>
+
+        <div class="substrate-card sub--navigation">
+          <div class="tile-bg"></div>
+          <div class="tile-scrim"></div>
+          <div class="tile-body">
+            <h4>Navigation</h4>
+            <p>5,490 Oakland nodes · 0 LLM calls · Live route evaluation</p>
+          </div>
         </div>
-        <div class="substrate-card substrate-card--active">
-          <div class="sub-icon">📚</div>
-          <h4>Education</h4>
-          <p>+22pt proficiency · 7–10hrs returned · Live classroom pilot</p>
+
+        <div class="substrate-card sub--education">
+          <div class="tile-bg" style="background-image:url('media/giving/teachers.jpg')"></div>
+          <div class="tile-scrim"></div>
+          <div class="tile-body">
+            <h4>Education</h4>
+            <p>+22pt proficiency · 7–10hrs returned · Live classroom pilot</p>
+          </div>
         </div>
-        <div class="substrate-card">
-          <div class="sub-icon">⚡</div>
-          <h4>Next frontier</h4>
-          <p>Closed-loop visual servoing · Fine-precision threading · Physical dexterity</p>
+
+        <div class="substrate-card sub--next">
+          <div class="tile-bg"></div>
+          <div class="tile-scrim"></div>
+          <div class="tile-body">
+            <h4>Next frontier</h4>
+            <p>Closed-loop visual servoing · Fine-precision threading · Physical dexterity</p>
+          </div>
         </div>
+
       </div>
     </div>
   </section>
