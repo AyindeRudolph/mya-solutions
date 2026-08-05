@@ -61,6 +61,7 @@
   /* ---------- panel base ---------- */
   .panel{position:relative;height:100vh;min-height:640px;overflow:hidden;display:flex;align-items:center}
   .panel video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1}
+  .panel .panel-still{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1}
   .panel .media-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0}
   .panel .scrim{position:absolute;inset:0;z-index:2}
   .panel .content{position:relative;z-index:3;padding:0 8%;max-width:900px}
@@ -164,7 +165,20 @@
     <div class="scrollhint"><span>Scroll</span><span class="l"></span></div>
   </section>
 
-  <!-- ===== 1 · EDUCATION ===== -->
+  <!-- ===== 1 · BETHANYSHELL (flagship — first product) ===== -->
+  <section class="panel p-cyber" id="cyber">
+    <img class="panel-still" src="media/hero/lighthouse-poster.png" alt="" aria-hidden="true"
+         onerror="this.style.display='none'">
+    <div class="media-bg" aria-hidden="true"></div><div class="scrim" aria-hidden="true"></div>
+    <div class="content">
+      <div class="eyebrow">BethanyShell · Powered by Jean OS · Available now</div>
+      <h2 class="line">Security that never<br>leaves your building.</h2>
+      <p class="sub">Enterprise-grade defense on a box you own — 92.3% APT-class block, zero false positives, roughly one nanosecond per check. At half the price.</p>
+      <a class="learn" href="bethanyshell.html">Learn more <span class="arr">&rarr;</span></a>
+    </div>
+  </section>
+
+  <!-- ===== 2 · EDUCATION ===== -->
   <section class="panel p-education" id="education">
     <video muted playsinline poster="media/products/marva-hero-poster.jpg" onended="holdPoster(this)" onerror="this.style.display='none'">
       <source src="media/products/marva-hero.mp4" type="video/mp4">
@@ -175,20 +189,6 @@
       <h2 class="line">Give every teacher<br>the time to teach.</h2>
       <p class="sub">A partner that returns the hours and never lets a student's data leave the room.</p>
       <a class="learn" href="education.html">Learn more <span class="arr">&rarr;</span></a>
-    </div>
-  </section>
-
-  <!-- ===== 2 · CYBERSECURITY ===== -->
-  <section class="panel p-cyber" id="cyber">
-    <video muted playsinline poster="media/products/bethany-hero-poster.jpg" onended="holdPoster(this)" onerror="this.style.display='none'">
-      <source src="media/products/bethany-hero.mp4" type="video/mp4">
-    </video>
-    <div class="media-bg" aria-hidden="true"></div><div class="scrim" aria-hidden="true"></div>
-    <div class="content">
-      <div class="eyebrow">Cybersecurity · BethanyShell</div>
-      <h2 class="line">Guard the data<br>that can't move.</h2>
-      <p class="sub">Nation-state-grade defense that runs where your most sensitive data already lives.</p>
-      <a class="learn" href="defense.html">Learn more <span class="arr">&rarr;</span></a>
     </div>
   </section>
 
