@@ -63,35 +63,43 @@
              text-decoration:none}
   .back-home:hover{background:rgba(244,162,89,.15)!important;color:#fff!important}
 
-  /* ========== HERO ========== */
-  .hero{background:var(--space);min-height:88vh;display:flex;align-items:center;
-        padding:140px 40px 100px;position:relative;overflow:hidden}
-  .hero::before{content:"";position:absolute;inset:0;
+  /* ========== HERO — full-screen video, teacher warmth (BethanyShell treatment) ========== */
+  .hero{min-height:100vh;display:flex;align-items:center;justify-content:center;
+        padding:120px 40px 100px;position:relative;overflow:hidden;background:var(--space)}
+  #hero-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1}
+  /* painted warm-classroom fallback — golden hour, honey light, hopeful */
+  .hero-fallback{position:absolute;inset:0;z-index:0;
     background:
-      radial-gradient(ellipse 60% 50% at 20% 60%,rgba(200,118,58,.18) 0%,transparent 60%),
-      radial-gradient(ellipse 40% 40% at 80% 30%,rgba(29,111,139,.12) 0%,transparent 55%)}
-  .hero::after{content:"";position:absolute;bottom:0;left:0;right:0;height:200px;
-               background:linear-gradient(0deg,var(--sand),transparent)}
-  /* image tile — classroom photo when available */
-  .hero-img{position:absolute;left:0;top:0;bottom:0;width:48%;z-index:0;overflow:hidden}
-  .hero-img img{width:100%;height:100%;object-fit:cover;opacity:.35}
-  .hero-img .img-fallback{width:100%;height:100%;
-    background:linear-gradient(135deg,#2a1a08 0%,#3a2510 40%,#1a0f04 100%)}
-  .hero-scrim{position:absolute;inset:0;z-index:1;
-    background:linear-gradient(90deg,rgba(5,8,15,.6) 0%,rgba(5,8,15,.2) 45%,rgba(5,8,15,.55) 100%)}
-  .hero-inner{position:relative;z-index:2;max-width:580px;margin-left:auto}
+      radial-gradient(circle at 50% 44%, rgba(246,200,154,.18) 0%, transparent 26%),
+      radial-gradient(ellipse 90% 60% at 50% 8%, rgba(244,162,89,.24) 0%, transparent 55%),
+      radial-gradient(ellipse 70% 55% at 50% 100%, rgba(58,37,16,.6) 0%, transparent 60%),
+      linear-gradient(180deg,#1a1005 0%,#2a1a08 45%,#0f0a04 100%)}
+  .hero-fallback::before{content:"";position:absolute;left:50%;top:0;
+    width:60%;height:70%;transform:translateX(-50%);
+    background:radial-gradient(ellipse at 50% 0%,rgba(246,200,154,.16),transparent 70%);
+    filter:blur(6px);animation:warmglow 9s ease-in-out infinite}
+  @keyframes warmglow{0%,100%{opacity:.5}50%{opacity:.85}}
+  .hero-scrim{position:absolute;inset:0;z-index:2;
+    background:linear-gradient(180deg,rgba(5,8,15,.35) 0%,rgba(5,8,15,.2) 50%,rgba(5,8,15,.6) 100%)}
+  .hero::after{content:"";position:absolute;bottom:0;left:0;right:0;height:180px;z-index:2;
+               background:linear-gradient(0deg,var(--sand) 0%,transparent 100%)}
+  .hero-inner{position:relative;z-index:3;max-width:780px;text-align:center}
+  .hero-logo{height:64px;width:auto;margin:0 auto 22px;display:block;
+             filter:drop-shadow(0 8px 30px rgba(244,162,89,.25))}
   .kicker{font-size:12px;letter-spacing:.28em;text-transform:uppercase;
           font-weight:600;margin-bottom:24px}
   .kicker--edu{color:var(--edu-soft)}
   .kicker--ocean{color:var(--ocean)}
+  .hero-eyebrow{font-size:12px;letter-spacing:.3em;text-transform:uppercase;
+                font-weight:600;color:var(--edu-soft);margin-bottom:22px}
   .hero h1{font-family:var(--font-display);font-weight:500;
-           font-size:clamp(36px,5vw,66px);line-height:1.04;
-           color:#fff;letter-spacing:-.015em}
+           font-size:clamp(38px,6vw,72px);line-height:1.03;
+           color:#fff;letter-spacing:-.018em}
   .hero h1 .em{font-style:italic;color:var(--edu-soft)}
-  .hero .sub{margin-top:24px;font-size:18px;line-height:1.65;
-             color:rgba(255,255,255,.75);max-width:520px}
+  .hero .sub{margin-top:26px;font-size:18px;line-height:1.65;
+             color:rgba(255,255,255,.8);max-width:600px;margin-left:auto;margin-right:auto}
   .hero .sub b{color:#fff}
-  .hero-ctas{display:flex;gap:14px;flex-wrap:wrap;margin-top:36px}
+  .hero-ctas{display:flex;gap:14px;flex-wrap:wrap;margin-top:36px;justify-content:center}
 
   /* ========== BUTTONS ========== */
   .btn{display:inline-flex;align-items:center;gap:10px;padding:15px 28px;
@@ -160,9 +168,10 @@
   .testimonial .attr{font-size:14px;color:rgba(255,255,255,.6)}
   .testimonial .t-photo{width:64px;height:64px;border-radius:50%;object-fit:cover;
                         border:2px solid rgba(244,162,89,.4);margin-bottom:20px;display:block}
-  .testimonial .attr-row{display:flex;align-items:center;gap:16px;margin-top:8px}
-  .testimonial .attr-row .t-photo-sm{width:52px;height:52px;border-radius:50%;object-fit:cover;
-                        border:2px solid rgba(244,162,89,.4);flex-shrink:0}
+  .testimonial .attr-row{display:flex;align-items:center;gap:18px;margin-top:8px}
+  .testimonial .attr-row .t-photo-sm{width:72px;height:72px;border-radius:50%;object-fit:cover;
+                        border:2px solid rgba(244,162,89,.45);flex-shrink:0;
+                        box-shadow:0 4px 18px rgba(0,0,0,.3)}
   .testimonial .attr strong{color:var(--dawn-soft);display:block;
                              font-size:16px;margin-bottom:4px}
   .receipt-stats{display:flex;flex-direction:column;gap:20px}
@@ -245,7 +254,6 @@
     .topbar{padding:14px 18px;flex-wrap:wrap;gap:10px}
     .quick{gap:14px;order:3;width:100%;overflow-x:auto}
     .quick a{font-size:12.5px;white-space:nowrap}
-    .hero-img{display:none}
     .hero-inner{margin-left:0;max-width:100%}
     .problem-cols{grid-template-columns:1fr}
     .steps{grid-template-columns:1fr}
@@ -276,14 +284,14 @@
 
   <!-- ===== HERO ===== -->
   <section class="hero">
-    <div class="hero-img">
-      <!-- swap src when teachers.jpg is ready: media/giving/teachers.jpg -->
-      <img src="media/giving/teachers.jpg" alt="Teacher with students"
-           onerror="this.parentElement.innerHTML='<div class=\'img-fallback\'></div>'">
-    </div>
-    <div class="hero-scrim"></div>
+    <video id="hero-video" autoplay muted playsinline poster="media/hero/teacher-poster.jpg"
+           onended="this.pause()" onerror="this.style.display='none'">
+      <source src="media/hero/teacher.mp4" type="video/mp4">
+    </video>
+    <div class="hero-fallback" aria-hidden="true"></div>
+    <div class="hero-scrim" aria-hidden="true"></div>
     <div class="hero-inner">
-      <div class="kicker kicker--edu">Jean for Education</div>
+      <div class="hero-eyebrow">Jean for Education · Powered by Jean OS</div>
       <h1>Expand your favorite<br>teacher's <span class="em">reach.</span></h1>
       <p class="sub">The average teacher spends <b>7–10 hours a week</b> on tasks that have nothing to do with teaching. Jean gives those hours back — privately, locally, without student data ever leaving the room.</p>
       <div class="hero-ctas">
