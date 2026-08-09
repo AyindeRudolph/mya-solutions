@@ -158,6 +158,11 @@
     font-style:italic;font-size:clamp(18px,2.2vw,24px);line-height:1.5;
     color:#fff;margin-bottom:24px}
   .testimonial .attr{font-size:14px;color:rgba(255,255,255,.6)}
+  .testimonial .t-photo{width:64px;height:64px;border-radius:50%;object-fit:cover;
+                        border:2px solid rgba(244,162,89,.4);margin-bottom:20px;display:block}
+  .testimonial .attr-row{display:flex;align-items:center;gap:16px;margin-top:8px}
+  .testimonial .attr-row .t-photo-sm{width:52px;height:52px;border-radius:50%;object-fit:cover;
+                        border:2px solid rgba(244,162,89,.4);flex-shrink:0}
   .testimonial .attr strong{color:var(--dawn-soft);display:block;
                              font-size:16px;margin-bottom:4px}
   .receipt-stats{display:flex;flex-direction:column;gap:20px}
@@ -345,11 +350,15 @@
       <div class="receipt-grid">
         <div class="testimonial">
           <blockquote>"Jean didn't replace what I do — it gave me back the capacity to do it better. My students are more engaged, my planning is sharper, and I'm not exhausted by Thursday."</blockquote>
-          <div class="attr">
-            <strong>Sebastian Benavidez III</strong>
-            Classroom teacher — Parlier, California
+          <div class="attr-row">
+            <img class="t-photo-sm" src="sbenavidez.jpg" alt="Sebastian Benavidez III"
+                 onerror="this.style.display='none'">
+            <div class="attr">
+              <strong>Sebastian Benavidez III</strong>
+              Classroom teacher — Parlier, California
+            </div>
           </div>
-          <a class="docsend-link" href="https://docsend.com/view/khrkwr34z79zfryi" target="_blank" rel="noopener">
+          <a class="docsend-link" href="https://docsend.com/view/khrkwr34z79zfryi" target="_blank" rel="noopener" style="margin-top:20px">
             Read the full testimonial &rarr;
           </a>
         </div>
