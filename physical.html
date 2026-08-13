@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<!--
+  FILE / ROOT:  /site/physical.html  (mYa Solutions — Physical Intelligence overview hub)
+  OWNER:        Ayinde Rudolph, Ed.D. — mYa Solutions (arudolph@myasolutions.org)
+  CIPHER:       4KAM1431RAN
+  PURPOSE:      Overview hub for Partner Intelligence across physical domains.
+                The argument: Jean OS changes HOW physical intelligence gets built —
+                reasoning is architectural, not trained on millions of domain examples,
+                so you skip the training bottleneck and move toward deployment faster.
+                Four slanted image tiles route to each domain spoke.
+  SPOKES:       robotics.html (arm/dexterity, humanoids later) · marine.html · ground.html · air.html
+  MEDIA:        Tile stills from media/. Painted fallbacks until images land. Same pattern as site.
+  UPDATED:      2026-08-12 — initial build. Flat structure; all spokes at root.
+-->
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Physical Intelligence — Partner Intelligence for every physical domain | mYa Solutions</title>
+<meta name="description" content="Partner Intelligence for every physical domain that needs it. Jean OS reasons architecturally — not trained on millions of domain examples — so physical intelligence reaches deployment faster. Land, sea, air, and the machines between them.">
+<meta name="keywords" content="physical AI, embodied intelligence, robotics, autonomous underwater vehicle, autonomous navigation, robotic arm, humanoid robotics, Jean OS">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --space:#05080f; --space-2:#0a1018; --space-3:#0d1520;
+    --dawn:#f4a259; --dawn-soft:#f6c89a;
+    --sand:#f7f3ec; --sand-2:#fdfbf7;
+    --ink:#16202a; --ink-soft:#566069; --line:#e6ded2;
+    /* Physical Intelligence accent — slate/steel, domain-neutral */
+    --phys:#2e4a5f; --phys-mid:#4a7a9c; --phys-soft:#7bafd4; --phys-bright:#a8cce0;
+    /* per-domain accents */
+    --rob:#7bafd4;      /* robotics — steel */
+    --sea:#52b8c4;      /* marine — teal */
+    --land:#8fd0a0;     /* ground — sage-green (distinct, ADA-safe on dark) */
+    --air:#c9a8e8;      /* air — soft violet-sky */
+    --font-display:'Fraunces',Georgia,serif;
+    --font-body:'Inter',system-ui,sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{font-family:var(--font-body);background:var(--space);color:#fff;-webkit-font-smoothing:antialiased}
+  a{color:var(--phys-soft);text-decoration:none}
+
+  /* ========== TOPBAR + DROPDOWN ========== */
+  .topbar{position:fixed;top:0;left:0;right:0;z-index:60;display:flex;align-items:center;
+          justify-content:space-between;padding:18px 36px;
+          background:linear-gradient(180deg,rgba(5,8,15,.9),rgba(5,8,15,0))}
+  .brand{display:flex;align-items:center;text-decoration:none}
+  .nav-logo{height:38px;width:auto;display:block;object-fit:contain;filter:brightness(1.05)}
+  .quick{display:flex;gap:24px;align-items:center}
+  .quick a{color:rgba(255,255,255,.82);text-decoration:none;font-size:13.5px;transition:color .2s}
+  .quick a:hover{color:#fff}
+  .quick a.active{color:#fff;border-bottom:1px solid rgba(255,255,255,.4);padding-bottom:1px}
+  .quick a.signin{border:1px solid rgba(255,255,255,.4);border-radius:100px;
+                  padding:7px 16px;color:#fff;margin-left:6px}
+  .quick a.signin:hover{background:#fff;color:var(--space)}
+  /* dropdown */
+  .dd{position:relative}
+  .dd > .dd-trigger{cursor:pointer;display:inline-flex;align-items:center;gap:5px}
+  .dd > .dd-trigger::after{content:"▾";font-size:9px;opacity:.7;transition:transform .2s}
+  .dd:hover > .dd-trigger::after{transform:rotate(180deg)}
+  .dd-menu{position:absolute;top:100%;left:50%;transform:translateX(-50%) translateY(6px);
+           background:rgba(10,16,24,.97);backdrop-filter:blur(14px);
+           border:0.5px solid rgba(255,255,255,.12);border-radius:14px;padding:8px;
+           min-width:220px;opacity:0;visibility:hidden;transition:opacity .18s,transform .18s;
+           box-shadow:0 20px 50px rgba(0,0,0,.5)}
+  .dd:hover .dd-menu{opacity:1;visibility:visible;transform:translateX(-50%) translateY(4px)}
+  .dd-menu a{display:block;padding:10px 14px;border-radius:9px;font-size:13.5px;
+             color:rgba(255,255,255,.82);white-space:nowrap;transition:background .15s,color .15s}
+  .dd-menu a:hover{background:rgba(123,175,212,.12);color:#fff}
+  .dd-menu .dd-label{font-size:10px;letter-spacing:.18em;text-transform:uppercase;
+                     color:rgba(255,255,255,.4);padding:10px 14px 4px;font-weight:600}
+  .dd-menu .dd-sub{padding-left:26px;font-size:13px;color:rgba(255,255,255,.65)}
+  .dd-menu .dd-sub .tag{font-size:10px;color:var(--dawn-soft);margin-left:6px}
+  .dd-menu .dd-divider{height:0.5px;background:rgba(255,255,255,.08);margin:6px 10px}
+  .back-home{display:flex;align-items:center;gap:8px;border:1px solid rgba(123,175,212,.3);
+             border-radius:100px;padding:7px 16px;background:rgba(123,175,212,.07);
+             color:var(--phys-bright)!important;font-size:13px!important;
+             white-space:nowrap;text-decoration:none}
+  .back-home:hover{background:rgba(123,175,212,.15)!important;color:#fff!important}
+
+  /* ========== HERO ========== */
+  .hero{min-height:82vh;display:flex;align-items:center;padding:150px 40px 90px;
+        position:relative;overflow:hidden;background:var(--space)}
+  .hero::before{content:"";position:absolute;inset:0;
+    background:
+      radial-gradient(ellipse 60% 55% at 18% 50%,rgba(46,74,95,.4) 0%,transparent 60%),
+      radial-gradient(ellipse 50% 45% at 85% 25%,rgba(123,175,212,.1) 0%,transparent 55%)}
+  .hero::after{content:"";position:absolute;bottom:0;left:0;right:0;height:160px;
+               background:linear-gradient(0deg,var(--space-2),transparent)}
+  .hero-inner{position:relative;z-index:1;max-width:900px}
+  .kicker{font-size:12px;letter-spacing:.28em;text-transform:uppercase;
+          font-weight:600;margin-bottom:24px;color:var(--phys-bright)}
+  .hero h1{font-family:var(--font-display);font-weight:500;
+           font-size:clamp(38px,5.4vw,74px);line-height:1.03;
+           color:#fff;letter-spacing:-.018em}
+  .hero h1 .em{font-style:italic;color:var(--phys-bright)}
+  .hero .sub{margin-top:28px;font-size:19px;line-height:1.65;
+             color:rgba(255,255,255,.75);max-width:680px}
+  .hero .sub b{color:#fff}
+
+  /* ========== THE ARGUMENT ========== */
+  .argument{background:var(--space-2);padding:80px 40px;
+            border-top:0.5px solid rgba(255,255,255,.06)}
+  .arg-inner{max-width:1040px;margin:0 auto}
+  .arg-lead{font-family:var(--font-display);font-weight:500;font-style:italic;
+            font-size:clamp(24px,3.2vw,40px);line-height:1.25;color:#fff;
+            max-width:860px;margin-bottom:44px}
+  .arg-lead .em{color:var(--phys-bright)}
+  .arg-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
+  .arg-card h3{font-family:var(--font-display);font-weight:500;font-size:21px;
+               color:#fff;margin-bottom:12px}
+  .arg-card p{font-size:15px;line-height:1.7;color:rgba(255,255,255,.68)}
+  .arg-card p strong{color:rgba(255,255,255,.92)}
+  .arg-card .num{font-family:var(--font-display);font-weight:600;font-size:15px;
+                 color:var(--phys-soft);margin-bottom:10px}
+
+  /* ========== THE SLANTED TILES ========== */
+  .domains{padding:90px 40px 100px;background:var(--space)}
+  .domains-head{max-width:1040px;margin:0 auto 56px}
+  .domains-head .kicker{color:var(--phys-bright)}
+  .domains-head h2{font-family:var(--font-display);font-weight:500;
+                   font-size:clamp(28px,3.6vw,48px);line-height:1.1;color:#fff;
+                   letter-spacing:-.012em;max-width:760px}
+  .domains-head h2 .em{font-style:italic;color:var(--phys-bright)}
+  .domains-head p{margin-top:18px;font-size:17px;line-height:1.65;
+                  color:rgba(255,255,255,.62);max-width:600px}
+
+  /* the slanted grid — 4 parallelogram tiles */
+  .tile-grid{max-width:1180px;margin:0 auto;display:grid;
+             grid-template-columns:1fr 1fr;gap:26px}
+  .tile{position:relative;height:340px;border-radius:20px;overflow:hidden;
+        text-decoration:none;display:block;
+        transform:skewY(-2.2deg);transition:transform .35s cubic-bezier(.2,.8,.2,1),
+                    box-shadow .35s;box-shadow:0 14px 40px rgba(0,0,0,.35)}
+  .tile:nth-child(even){transform:skewY(2.2deg)}
+  .tile:hover{transform:skewY(0deg) scale(1.015);box-shadow:0 26px 70px rgba(0,0,0,.55)}
+  /* un-skew the inner content so text stays straight */
+  .tile-inner{position:absolute;inset:0;transform:skewY(2.2deg);
+              display:flex;flex-direction:column;justify-content:flex-end;padding:34px}
+  .tile:nth-child(even) .tile-inner{transform:skewY(-2.2deg)}
+  .tile:hover .tile-inner{transform:skewY(0deg)}
+  .tile-inner{transition:transform .35s cubic-bezier(.2,.8,.2,1)}
+  .tile-bg{position:absolute;inset:-30px;background-size:cover;background-position:center;z-index:0}
+  .tile-scrim{position:absolute;inset:-30px;z-index:1;
+    background:linear-gradient(180deg,rgba(5,8,15,.15) 0%,rgba(5,8,15,.55) 55%,rgba(5,8,15,.9) 100%)}
+  .tile-body{position:relative;z-index:2}
+  .tile .t-status{position:absolute;top:34px;left:34px;z-index:3;
+                  font-size:10px;letter-spacing:.2em;text-transform:uppercase;font-weight:600;
+                  padding:5px 12px;border-radius:100px;backdrop-filter:blur(6px)}
+  .t-status--live{background:rgba(123,175,212,.18);border:1px solid rgba(123,175,212,.4);color:var(--phys-bright)}
+  .t-status--soon{background:rgba(244,162,89,.15);border:1px solid rgba(244,162,89,.35);color:var(--dawn-soft)}
+  .tile .t-domain{font-size:11px;letter-spacing:.22em;text-transform:uppercase;
+                  font-weight:600;margin-bottom:10px}
+  .tile h3{font-family:var(--font-display);font-weight:500;font-size:30px;
+           color:#fff;line-height:1.1;margin-bottom:10px}
+  .tile p{font-size:14px;line-height:1.55;color:rgba(255,255,255,.82);max-width:88%}
+  .tile .t-go{margin-top:16px;font-size:13px;font-weight:600;display:inline-flex;
+              align-items:center;gap:7px;opacity:0;transform:translateX(-6px);
+              transition:opacity .3s,transform .3s}
+  .tile:hover .t-go{opacity:1;transform:translateX(0)}
+
+  /* per-domain painted backgrounds + accents */
+  .tile--robotics .tile-bg{background:linear-gradient(135deg,#0d1a25,#1c3547 55%,#0a1520)}
+  .tile--robotics .t-domain{color:var(--rob)} .tile--robotics .t-go{color:var(--rob)}
+  .tile--marine .tile-bg{background:linear-gradient(135deg,#041c22,#0a4048 50%,#02141a)}
+  .tile--marine .t-domain{color:var(--sea)} .tile--marine .t-go{color:var(--sea)}
+  .tile--ground .tile-bg{background:linear-gradient(135deg,#0a1f14,#164e2e 50%,#06120b)}
+  .tile--ground .t-domain{color:var(--land)} .tile--ground .t-go{color:var(--land)}
+  .tile--air .tile-bg{background:linear-gradient(135deg,#1a1428,#3a2a55 50%,#100a1c)}
+  .tile--air .t-domain{color:var(--air)} .tile--air .t-go{color:var(--air)}
+  .tile--air{cursor:default}
+
+  /* ========== CLOSE CTA ========== */
+  .close{background:var(--space-2);padding:80px 40px;text-align:center;
+         border-top:0.5px solid rgba(255,255,255,.06)}
+  .close-inner{max-width:680px;margin:0 auto}
+  .close h2{font-family:var(--font-display);font-weight:500;
+            font-size:clamp(26px,3.4vw,44px);color:#fff;line-height:1.1}
+  .close h2 .em{font-style:italic;color:var(--phys-bright)}
+  .close p{margin-top:20px;font-size:17px;line-height:1.7;color:rgba(255,255,255,.68)}
+  .close-ctas{margin-top:34px;display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+  .btn{display:inline-flex;align-items:center;gap:10px;padding:15px 30px;border-radius:100px;
+       font-size:15px;font-weight:600;text-decoration:none;transition:transform .15s,box-shadow .2s}
+  .btn-phys{background:var(--phys-mid);color:#fff;box-shadow:0 8px 24px rgba(74,122,156,.3)}
+  .btn-phys:hover{background:var(--phys);transform:translateY(-1px);color:#fff}
+  .btn-gold{background:var(--dawn);color:#2a1a08;box-shadow:0 8px 24px rgba(244,162,89,.28)}
+  .btn-gold:hover{background:var(--dawn-soft);transform:translateY(-1px);color:#2a1a08}
+
+  /* ========== FOOTER ========== */
+  .footer{background:var(--space-2);color:rgba(255,255,255,.6);padding:60px 40px 40px;
+          border-top:0.5px solid rgba(255,255,255,.06)}
+  .footer-inner{max-width:1040px;margin:0 auto;display:flex;justify-content:space-between;flex-wrap:wrap;gap:30px}
+  .footer-logo{height:44px;width:auto;display:block;object-fit:contain;filter:brightness(1.1)}
+  .footer .f-tag{margin-top:12px;font-family:var(--font-display);font-style:italic;font-size:15px;color:rgba(255,255,255,.7)}
+  .footer .f-links{display:flex;flex-direction:column;gap:10px}
+  .footer .f-links a{color:rgba(255,255,255,.6);text-decoration:none;font-size:14px}
+  .footer .f-links a:hover{color:#fff}
+  .footer .f-bottom{max-width:1040px;margin:40px auto 0;padding-top:24px;
+                    border-top:0.5px solid rgba(255,255,255,.12);font-size:12.5px;color:rgba(255,255,255,.45)}
+
+  /* ========== RESPONSIVE ========== */
+  @media(max-width:900px){
+    .topbar{padding:14px 18px;flex-wrap:wrap;gap:10px}
+    .quick{gap:14px;order:3;width:100%;overflow-x:auto}
+    .quick a{font-size:12.5px;white-space:nowrap}
+    .dd-menu{position:static;transform:none;opacity:1;visibility:visible;
+             background:transparent;border:none;box-shadow:none;padding:0;min-width:0}
+    .dd:hover .dd-menu{transform:none}
+    .arg-grid{grid-template-columns:1fr}
+    .tile-grid{grid-template-columns:1fr}
+    .tile,.tile:nth-child(even){transform:skewY(0deg)}
+    .tile-inner,.tile:nth-child(even) .tile-inner{transform:skewY(0deg)}
+    .hero{padding:120px 22px 70px}
+    .argument,.domains,.close{padding:60px 22px}
+  }
+</style>
+</head>
+<body>
+
+  <!-- ===== TOPBAR with Products dropdown ===== -->
+  <div class="topbar">
+    <a class="brand" href="index.html"><img src="logo.png" alt="mYa Solutions" class="nav-logo"></a>
+    <nav class="quick">
+      <a href="index.html">Home</a>
+      <div class="dd">
+        <span class="dd-trigger" role="button" tabindex="0">Products</span>
+        <div class="dd-menu">
+          <a href="bethanyshell.html">BethanyShell</a>
+          <a href="education.html">Education</a>
+          <div class="dd-divider"></div>
+          <div class="dd-label">Physical Intelligence</div>
+          <a href="physical.html" class="dd-sub">Overview</a>
+          <a href="robotics.html" class="dd-sub">Robotics</a>
+          <a href="marine.html" class="dd-sub">Marine</a>
+          <a href="ground.html" class="dd-sub">Ground</a>
+          <a href="air.html" class="dd-sub">Air <span class="tag">soon</span></a>
+        </div>
+      </div>
+      <a href="about.html">About</a>
+      <a href="investor.html">Investor</a>
+      <a href="giving.html">Giving Back</a>
+      <a href="company.html">Company</a>
+      <a href="login.html" class="signin">Sign In</a>
+    </nav>
+    <a href="index.html" class="back-home">&#8592; Home</a>
+  </div>
+
+  <!-- ===== HERO ===== -->
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="kicker">Physical Intelligence</div>
+      <h1>Partner Intelligence for every<br>physical domain <span class="em">that needs it.</span></h1>
+      <p class="sub">Land, sea, air, and the machines between them. The same mind that reasons through a threaded needle holds a vehicle steady in a dark ocean current — <b>without being retrained for either.</b></p>
+    </div>
+  </section>
+
+  <!-- ===== THE ARGUMENT ===== -->
+  <section class="argument">
+    <div class="arg-inner">
+      <p class="arg-lead">Most physical AI is built one domain at a time — millions of demonstrations, months of training, a model that only knows the task it was fed. <span class="em">Jean OS is built differently.</span></p>
+      <div class="arg-grid">
+        <div class="arg-card">
+          <div class="num">01</div>
+          <h3>Reasoning, not training</h3>
+          <p>Jean's control decisions come from architectural reasoning — not a policy learned from millions of examples. <strong>New domain, same mind.</strong> The engine that handles an arm handles an underwater vehicle without starting over.</p>
+        </div>
+        <div class="arg-card">
+          <div class="num">02</div>
+          <h3>Skip the training bottleneck</h3>
+          <p>When you don't need a massive domain-specific dataset to begin, you don't wait months to start. <strong>You move toward deployment faster</strong> — measure the plant, reason about it, control it.</p>
+        </div>
+        <div class="arg-card">
+          <div class="num">03</div>
+          <h3>Every domain costs less than the last</h3>
+          <p>Because the reasoning transfers, each new physical domain reuses the mind already built. <strong>Land, sea, air — and eventually humanoids —</strong> extend one architecture rather than rebuilding from zero.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== THE DOMAINS — slanted tiles ===== -->
+  <section class="domains">
+    <div class="domains-head">
+      <div class="kicker">The domains</div>
+      <h2>One mind. <span class="em">Four worlds.</span></h2>
+      <p>Each proven — or being proven — on its own physics, with receipts you can verify.</p>
+    </div>
+
+    <div class="tile-grid">
+
+      <a class="tile tile--robotics" href="robotics.html">
+        <div class="tile-bg" style="background-image:url('media/pilots/robotics-demo-poster.jpg')"></div>
+        <div class="tile-scrim"></div>
+        <span class="t-status t-status--live">Receipt live</span>
+        <div class="tile-inner">
+          <div class="tile-body">
+            <div class="t-domain">Robotics · Dexterity</div>
+            <h3>The 7-DOF arm</h3>
+            <p>11/11 standard threading, 4/4 impossible tasks refused with reasons, zero false successes — no training data.</p>
+            <span class="t-go">Explore robotics &rarr;</span>
+          </div>
+        </div>
+      </a>
+
+      <a class="tile tile--marine" href="marine.html">
+        <div class="tile-bg"></div>
+        <div class="tile-scrim"></div>
+        <span class="t-status t-status--live">Receipt live</span>
+        <div class="tile-inner">
+          <div class="tile-body">
+            <div class="t-domain">Marine · Subsea</div>
+            <h3>The underwater vehicle</h3>
+            <p>Depth held within ±0.5 m for 3× the required time, three runs agreeing within 1% — every constant measured, not assumed.</p>
+            <span class="t-go">Explore marine &rarr;</span>
+          </div>
+        </div>
+      </a>
+
+      <a class="tile tile--ground" href="ground.html">
+        <div class="tile-bg"></div>
+        <div class="tile-scrim"></div>
+        <span class="t-status t-status--live">Receipt live</span>
+        <div class="tile-inner">
+          <div class="tile-body">
+            <div class="t-domain">Ground · Navigation</div>
+            <h3>Autonomous roads</h3>
+            <p>5,490 live Oakland route nodes evaluated with zero LLM calls in the cognitive path — pure deterministic reasoning.</p>
+            <span class="t-go">Explore ground &rarr;</span>
+          </div>
+        </div>
+      </a>
+
+      <div class="tile tile--air">
+        <div class="tile-bg"></div>
+        <div class="tile-scrim"></div>
+        <span class="t-status t-status--soon">On the horizon</span>
+        <div class="tile-inner">
+          <div class="tile-body">
+            <div class="t-domain">Air · Aerial</div>
+            <h3>The sky is next</h3>
+            <p>The same reasoning that holds a vehicle in a current will hold one in the wind. Aerial is on the roadmap — same mind, new medium.</p>
+            <span class="t-go" style="opacity:.6;color:var(--air)">Coming soon</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ===== CLOSE ===== -->
+  <section class="close">
+    <div class="close-inner">
+      <div class="kicker" style="color:var(--phys-bright)">Why it matters</div>
+      <h2>The bottleneck in physical AI was never the hardware. <span class="em">It was the training.</span></h2>
+      <p>We removed it. That's why one small team can prove intelligence across an arm, an ocean, and a road — and why the next domain is always closer than the last.</p>
+      <div class="close-ctas">
+        <a class="btn btn-phys" href="robotics.html">See the first receipt</a>
+        <a class="btn btn-gold" href="investor.html">Investor briefing &rarr;</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div>
+        <a href="index.html"><img src="logo.png" alt="mYa Solutions" class="footer-logo"></a>
+        <div class="f-tag">The other half of the AI story.</div>
+      </div>
+      <div class="f-links">
+        <a href="robotics.html">Robotics</a>
+        <a href="marine.html">Marine</a>
+        <a href="ground.html">Ground</a>
+        <a href="investor.html">Investor</a>
+        <a href="index.html">&#8592; Back to home</a>
+      </div>
+    </div>
+    <div class="f-bottom">In memoriam: Kamyia Fletcher (1995&ndash;2024) &nbsp;&middot;&nbsp; &copy; 2026 mYa Solutions, Inc. &nbsp;&middot;&nbsp; Oakland, California &nbsp;&middot;&nbsp; arudolph@myasolutions.org</div>
+  </footer>
+
+</body>
+</html>
