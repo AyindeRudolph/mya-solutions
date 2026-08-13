@@ -50,13 +50,14 @@
   .dd{position:relative}
   .dd > .dd-trigger{cursor:pointer;display:inline-flex;align-items:center;gap:5px;color:rgba(255,255,255,.82);font-size:13.5px}
   .dd > .dd-trigger::after{content:"\25BE";font-size:9px;opacity:.7;transition:transform .2s}
-  .dd:hover > .dd-trigger{color:#fff}
-  .dd:hover > .dd-trigger::after{transform:rotate(180deg)}
+  .dd:hover > .dd-trigger,.dd.open > .dd-trigger{color:#fff}
+  .dd:hover > .dd-trigger::after,.dd.open > .dd-trigger::after{transform:rotate(180deg)}
+  .dd-menu::before{content:"";position:absolute;top:-10px;left:0;right:0;height:10px}
   .dd-menu{position:absolute;top:100%;left:50%;transform:translateX(-50%) translateY(6px);
            background:rgba(10,16,24,.97);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);
            border:0.5px solid rgba(255,255,255,.12);border-radius:14px;padding:8px;min-width:220px;
            opacity:0;visibility:hidden;transition:opacity .18s,transform .18s;box-shadow:0 20px 50px rgba(0,0,0,.5)}
-  .dd:hover .dd-menu{opacity:1;visibility:visible;transform:translateX(-50%) translateY(4px)}
+  .dd:hover .dd-menu,.dd.open .dd-menu{opacity:1;visibility:visible;transform:translateX(-50%) translateY(4px)}
   .dd-menu a{display:block;padding:10px 14px;border-radius:9px;font-size:13.5px;color:rgba(255,255,255,.82);white-space:nowrap;transition:background .15s,color .15s}
   .dd-menu a:hover{background:rgba(123,175,212,.12);color:#fff}
   .dd-menu .dd-label{font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.4);padding:10px 14px 4px;font-weight:600}
@@ -114,7 +115,6 @@
   .p-education .media-bg{background:radial-gradient(120% 100% at 65% 25%,#3a2a1c,#0c0f16)}
   .p-cyber .media-bg{background:radial-gradient(120% 100% at 60% 30%,#13243a,#070c14)}
   .p-robotics .media-bg{background:radial-gradient(120% 100% at 70% 30%,#2a2030,#0a0d14)}
-  .p-av .media-bg{background:radial-gradient(120% 100% at 60% 35%,#3a2c1a,#0c0e14)}
   .p-mining .media-bg{background:radial-gradient(120% 100% at 55% 40%,#3a2a18,#140d08)}
   .p-coral .media-bg{background:radial-gradient(120% 100% at 60% 30%,#0f3a44,#06141a)}
   .panel:not(.opener) .scrim{background:linear-gradient(90deg,rgba(5,8,15,.78) 0%,rgba(5,8,15,.45) 55%,rgba(5,8,15,.25) 100%)}
@@ -147,7 +147,7 @@
     <a class="brand" href="#top"><img src="logo.png" alt="mYa Solutions" class="nav-logo"></a>
     <nav class="quick">
       <div class="dd">
-        <span class="dd-trigger" role="button" tabindex="0">Products</span>
+        <a class="dd-trigger" href="physical.html">Products</a>
         <div class="dd-menu">
           <a href="bethanyshell.html">BethanyShell</a>
           <a href="education.html">Education</a>
@@ -223,38 +223,23 @@
     </div>
   </section>
 
-  <!-- ===== 3 · ROBOTICS ===== -->
-  <section class="panel p-robotics" id="robotics">
+  <!-- ===== 3 · PHYSICAL INTELLIGENCE (consolidated: robotics, marine, ground, air) ===== -->
+  <section class="panel p-robotics" id="physical">
     <img class="panel-still" src="media/pilots/robotics-demo-poster.jpg" alt="" aria-hidden="true"
          onerror="this.style.display='none'">
     <div class="media-bg" aria-hidden="true"></div><div class="scrim" aria-hidden="true"></div>
     <div class="content">
-      <div class="eyebrow">Robotics</div>
+      <div class="eyebrow">Physical Intelligence · Land · Sea · Air</div>
       <h2 class="line">Give machines<br>a steady hand.</h2>
-      <p class="sub">Dexterous control with no language-model calls in the cognitive path. Already demonstrated.</p>
-      <a class="learn" href="robotics.html">Learn more <span class="arr">&rarr;</span></a>
-    </div>
-  </section>
-
-  <!-- ===== 4 · AUTONOMOUS VEHICLES ===== -->
-  <section class="panel p-av" id="av">
-    <video muted playsinline poster="media/products/av-hero-poster.jpg" onended="holdPoster(this)" onerror="this.style.display='none'">
-      <source src="media/products/av-hero.mp4" type="video/mp4">
-    </video>
-    <div class="media-bg" aria-hidden="true"></div><div class="scrim" aria-hidden="true"></div>
-    <div class="content">
-      <div class="eyebrow">Autonomous Navigation</div>
-      <h2 class="line">Master the<br>open roads.</h2>
-      <p class="sub">Live route reasoning across thousands of nodes — on the device, without the cloud.</p>
-      <a class="learn" href="about.html#navigation">Learn more <span class="arr">&rarr;</span></a>
+      <p class="sub">One mind across every physical domain — a robotic arm, an underwater vehicle, the open roads. Proven, with receipts you can verify.</p>
+      <a class="learn" href="physical.html">Explore the domains <span class="arr">&rarr;</span></a>
     </div>
   </section>
 
   <!-- ===== 5 · MINING ===== -->
   <section class="panel p-mining" id="mining">
-    <video muted playsinline poster="media/products/mining-hero-poster.jpg" onended="holdPoster(this)" onerror="this.style.display='none'">
-      <source src="media/products/mining-hero.mp4" type="video/mp4">
-    </video>
+    <img class="panel-still" src="media/products/mining-hero-poster.jpg" alt="" aria-hidden="true"
+         onerror="this.style.display='none'">
     <div class="media-bg" aria-hidden="true"></div><div class="scrim" aria-hidden="true"></div>
     <div class="content">
       <div class="eyebrow">Sustainable Extraction</div>
@@ -266,9 +251,8 @@
 
   <!-- ===== 6 · CORAL / THOUGHT PROJECTS ===== -->
   <section class="panel p-coral" id="coral">
-    <video muted playsinline poster="media/products/coral-hero-poster.jpg" onended="holdPoster(this)" onerror="this.style.display='none'">
-      <source src="media/products/coral-hero.mp4" type="video/mp4">
-    </video>
+    <img class="panel-still" src="media/products/coral-hero-poster.jpg" alt="" aria-hidden="true"
+         onerror="this.style.display='none'">
     <div class="media-bg" aria-hidden="true"></div><div class="scrim" aria-hidden="true"></div>
     <div class="content">
       <div class="eyebrow">Ecological Restoration · In exploration</div>
@@ -341,5 +325,29 @@
     })();
   </script>
 
+
+<script>
+(function(){
+  document.querySelectorAll('.dd').forEach(function(dd){
+    var trigger = dd.querySelector('.dd-trigger');
+    if(!trigger) return;
+    trigger.addEventListener('click', function(e){
+      // first tap opens the menu instead of navigating; second tap (already open) follows the link
+      if(!dd.classList.contains('open')){
+        e.preventDefault();
+        document.querySelectorAll('.dd.open').forEach(function(o){if(o!==dd)o.classList.remove('open');});
+        dd.classList.add('open');
+      }
+      // if already open, let the link navigate (to physical.html)
+    });
+  });
+  document.addEventListener('click', function(e){
+    if(!e.target.closest('.dd')) document.querySelectorAll('.dd.open').forEach(function(o){o.classList.remove('open');});
+  });
+  document.addEventListener('keydown', function(e){
+    if(e.key==='Escape') document.querySelectorAll('.dd.open').forEach(function(o){o.classList.remove('open');});
+  });
+})();
+</script>
 </body>
 </html>
