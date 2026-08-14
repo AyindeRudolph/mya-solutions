@@ -48,16 +48,15 @@
   .quick a.signin{border:1px solid rgba(255,255,255,.4);border-radius:100px;padding:7px 16px;color:#fff;margin-left:6px}
   .quick a.signin:hover{background:#fff;color:var(--space)}
   .dd{position:relative}
-  .dd > .dd-trigger{cursor:pointer;display:inline-flex;align-items:center;gap:5px;color:rgba(255,255,255,.82);font-size:13.5px}
+  .dd > .dd-trigger{cursor:pointer;display:inline-flex;align-items:center;gap:5px;color:rgba(255,255,255,.82);font-size:13.5px;transition:color .2s}
   .dd > .dd-trigger::after{content:"\25BE";font-size:9px;opacity:.7;transition:transform .2s}
-  .dd:hover > .dd-trigger,.dd.open > .dd-trigger{color:#fff}
-  .dd:hover > .dd-trigger::after,.dd.open > .dd-trigger::after{transform:rotate(180deg)}
-  .dd-menu::before{content:"";position:absolute;top:-10px;left:0;right:0;height:10px}
+  .dd:hover > .dd-trigger{color:#fff}
+  .dd:hover > .dd-trigger::after{transform:rotate(180deg)}
   .dd-menu{position:absolute;top:100%;left:50%;transform:translateX(-50%) translateY(6px);
            background:rgba(10,16,24,.97);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);
            border:0.5px solid rgba(255,255,255,.12);border-radius:14px;padding:8px;min-width:220px;
            opacity:0;visibility:hidden;transition:opacity .18s,transform .18s;box-shadow:0 20px 50px rgba(0,0,0,.5)}
-  .dd:hover .dd-menu,.dd.open .dd-menu{opacity:1;visibility:visible;transform:translateX(-50%) translateY(4px)}
+  .dd:hover .dd-menu{opacity:1;visibility:visible;transform:translateX(-50%) translateY(4px)}
   .dd-menu a{display:block;padding:10px 14px;border-radius:9px;font-size:13.5px;color:rgba(255,255,255,.82);white-space:nowrap;transition:background .15s,color .15s}
   .dd-menu a:hover{background:rgba(123,175,212,.12);color:#fff}
   .dd-menu .dd-label{font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.4);padding:10px 14px 4px;font-weight:600}
@@ -147,7 +146,7 @@
     <a class="brand" href="#top"><img src="logo.png" alt="mYa Solutions" class="nav-logo"></a>
     <nav class="quick">
       <div class="dd">
-        <a class="dd-trigger" href="physical.html">Products</a>
+        <span class="dd-trigger" role="button" tabindex="0">Products</span>
         <div class="dd-menu">
           <a href="bethanyshell.html">BethanyShell</a>
           <a href="education.html">Education</a>
@@ -326,28 +325,5 @@
   </script>
 
 
-<script>
-(function(){
-  document.querySelectorAll('.dd').forEach(function(dd){
-    var trigger = dd.querySelector('.dd-trigger');
-    if(!trigger) return;
-    trigger.addEventListener('click', function(e){
-      // first tap opens the menu instead of navigating; second tap (already open) follows the link
-      if(!dd.classList.contains('open')){
-        e.preventDefault();
-        document.querySelectorAll('.dd.open').forEach(function(o){if(o!==dd)o.classList.remove('open');});
-        dd.classList.add('open');
-      }
-      // if already open, let the link navigate (to physical.html)
-    });
-  });
-  document.addEventListener('click', function(e){
-    if(!e.target.closest('.dd')) document.querySelectorAll('.dd.open').forEach(function(o){o.classList.remove('open');});
-  });
-  document.addEventListener('keydown', function(e){
-    if(e.key==='Escape') document.querySelectorAll('.dd.open').forEach(function(o){o.classList.remove('open');});
-  });
-})();
-</script>
 </body>
 </html>
